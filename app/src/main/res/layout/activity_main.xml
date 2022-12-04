@@ -21,14 +21,19 @@
         android:layout_centerInParent="true"
         android:orientation="vertical">
 
-        <Button
+        <!--<Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/new_window"
             android:layout_margin="5dp"
             android:backgroundTint="@color/white"
             android:text="New Window"
-            android:textColor="@color/black"/>
+            android:textColor="@color/black"/>-->
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/googlesignin"
+            android:id="@+id/google"/>
 
     </LinearLayout>
 </RelativeLayout>

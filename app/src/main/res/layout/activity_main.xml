@@ -6,101 +6,42 @@
     android:layout_height="match_parent"
     android:background="@color/teal_200"
     tools:context=".MainActivity">
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/banner"
-        android:text="Punkti bērniem"
+        android:id="@+id/welcome"
+        android:text="Welcome"
         android:layout_centerHorizontal="true"
-        android:textAlignment="center"
-        android:textSize="50dp"
-        android:textStyle="bold"
-        android:fontFamily="sans-serif-black"
-        android:layout_marginTop="50dp"
-        />
+        android:textSize="20dp"
+        android:layout_marginTop="50dp"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/bannerDescription"
-        android:text="Lietotne bērnu finansiālo mērķu sasniegšanai"
+        android:id="@+id/name"
+        android:text="name"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/banner"
-        android:textSize="14dp"
-        android:textAlignment="center"
-        android:textStyle="italic"
-        android:fontFamily="sans-serif-black"
-        />
-    <EditText
-        android:layout_width="380dp"
+        android:textSize="20dp"
+        android:layout_below="@id/welcome"
+        android:layout_marginTop="50dp"/>
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/email"
-        android:layout_below="@id/bannerDescription"
+        android:id="@+id/mail"
+        android:text="mail"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="80dp"
-        android:inputType="textEmailAddress"
-        android:textSize="24dp"
-        android:hint="E-pasta adrese"
-        />
-    <EditText
-        android:layout_width="380dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/password"
-        android:layout_below="@id/email"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        android:inputType="textPassword"
-        android:textSize="24dp"
-        android:hint="Parole"
-        />
+        android:textSize="20dp"
+        android:layout_below="@id/name"/>
     <Button
         android:layout_width="match_parent"
         android:layout_height="70dp"
-        android:id="@+id/login"
-        android:layout_below="@id/password"
+        android:id="@+id/logout"
+        android:layout_below="@id/mail"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="24dp"
         android:backgroundTint="@color/purple_700"
-        android:text="Ielogoties"
+        android:text="Izlogoties"
         android:textStyle="bold"
         android:layout_marginHorizontal="20dp"
         android:textSize="26dp"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/login"
-        android:id="@+id/forgotpassword"
-        android:text="Aizmirsi paroli?"
-        android:textSize="16dp"
-        android:textStyle="bold"
-        android:layout_marginTop="24dp"
-        android:layout_marginLeft="50dp"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/login"
-        android:layout_toRightOf="@id/forgotpassword"
-        android:id="@+id/register"
-        android:text="Reģistrēties"
-        android:textSize="16dp"
-        android:textStyle="bold"
-        android:layout_marginTop="24dp"
-        android:layout_marginLeft="90dp"/>
-
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/googlesignin"
-        android:id="@+id/google"
-        android:layout_below="@id/forgotpassword"
-        android:layout_marginTop="24dp"/>
-    <ProgressBar
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/progressBar"
-        style="?android:progressBarStyleLarge"
-        android:layout_centerInParent="true"
-        android:visibility="gone"
-        tools:ignore="MissingConstraints"/>
 
 </RelativeLayout>

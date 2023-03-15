@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.example.taskapp.databinding.ActivityLoginBinding
 import com.example.taskapp.databinding.ActivityMainBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -132,7 +133,69 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithCredential:success")
                     val user = auth.currentUser
-                    updateUI(user)
+                    var dialog: AlertDialog? = null
+                    var userRole : Boolean? = null
+                    var userNew: User
+                    //if new google sign in, create user in realtime database
+                    if(task.result.additionalUserInfo?.isNewUser != true)
+                    {
+                        // Create a new dialog builder
+                        val builder = AlertDialog.Builder(this)
+
+                        // Set the dialog title
+                        builder.setTitle("Reģistrēties kā vecāks vai bērns")
+
+                        // Create a list of roles to display in the dialog
+                        val roles = arrayOf("Vecāks", "Bērns")
+
+                        // Set the default selected role
+                        var selectedRole = "Vecāks"
+
+                        // Set the single choice items for the dialog
+                        builder.setSingleChoiceItems(roles, 0) { dialog, which ->
+                            // Update the selected role when the user selects an option
+                            selectedRole = roles[which]
+                        }
+
+                        // Set the positive button for the dialog
+                        builder.setPositiveButton("OK") { dialog, which ->
+                            // TODO: Handle the selected role here
+                            if(selectedRole == "Vecāks")
+                            {
+                                userRole = true
+                            }
+                            if(selectedRole == "Bērns")
+                            {
+                                userRole = false
+                            }
+                            if(userRole != null)
+                            {
+                                userNew = User(user?.displayName,user?.email,userRole, null)
+                                updateUI(user)
+                            }
+                            else
+                            {
+                                Firebase.auth.signOut()
+                                dialog.dismiss()
+                                updateUI(null)
+                            }
+                        }
+
+                            // Set the negative button for the dialog
+                        builder.setNegativeButton("Cancel") { dialog, which ->
+                            // Dismiss the dialog if the user cancels
+                            Firebase.auth.signOut()
+                            dialog.dismiss()
+                            updateUI(null)
+                        }
+
+                        // Show the dialog
+                        dialog = builder.create()
+                        dialog.show()
+                    }
+                    else {
+                        updateUI(user)
+                    }
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithCredential:failure", task.exception)

@@ -21,10 +21,10 @@ class RegisterUserActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var banner: TextView
     private lateinit var registerUser: TextView
     private lateinit var editTextFullName: EditText
-    private lateinit var editTextAge: EditText
     private lateinit var editTextEmail: EditText
     private lateinit var editTextPassword: EditText
     private lateinit var editTextConfirmPassword: EditText
+    private lateinit var radioParent: RadioGroup
     private lateinit var progressBar: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,7 +32,7 @@ class RegisterUserActivity : AppCompatActivity(), View.OnClickListener {
         val database = Firebase.database("https://taskapp-b088b-default-rtdb.europe-west1.firebasedatabase.app/")
         val myRef = database.getReference("message")
 
-        myRef.setValue("Hello, World!")
+        //myRef.setValue("Hello, Worlds!")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register_user)
         auth = FirebaseAuth.getInstance()
@@ -44,10 +44,11 @@ class RegisterUserActivity : AppCompatActivity(), View.OnClickListener {
         registerUser.setOnClickListener(this)
 
         editTextFullName = findViewById(R.id.fullname) as EditText
-        editTextAge = findViewById(R.id.age) as EditText
         editTextEmail = findViewById(R.id.email) as EditText
         editTextPassword = findViewById(R.id.password) as EditText
         editTextConfirmPassword = findViewById(R.id.confirmPassword) as EditText
+
+        radioParent = findViewById(R.id.radioGroup) as RadioGroup
 
         progressBar = findViewById(R.id.progressBar) as ProgressBar
     }
@@ -66,18 +67,36 @@ class RegisterUserActivity : AppCompatActivity(), View.OnClickListener {
         var password:String = editTextPassword.text.toString().trim()
         var confirmPassword:String = editTextConfirmPassword.text.toString().trim()
         var fullName:String = editTextFullName.text.toString().trim()
-        var age:String = editTextAge.text.toString().trim()
+        var parent:Boolean? = null
 
+        var selectedRadioButtonId = radioParent.checkedRadioButtonId
+
+
+        if (selectedRadioButtonId == -1) {
+            // No radio button is selected
+            // Show an error message to the user
+            Toast.makeText(this,"Neveiksmīga reģistrācija!",Toast.LENGTH_LONG).show()
+            return
+        } else {
+            // Find the selected radio button by the ID
+            val selectedRadioButton = findViewById<RadioButton>(selectedRadioButtonId)
+
+            // Get the text of the selected radio button
+            val selectedRadioButtonText = selectedRadioButton.text.toString()
+
+            if(selectedRadioButtonText.equals("Vecāks"))
+            {
+                parent = true
+            }
+            if(selectedRadioButtonText.equals("Bērns"))
+            {
+                parent = false
+            }
+        }
         if(fullName.isEmpty())
         {
             editTextFullName.setError("Nepieciešams pilns vārds!")
             editTextFullName.requestFocus()
-            return
-        }
-        if(age.isEmpty())
-        {
-            editTextAge.setError("Nepieciešams vecums!")
-            editTextAge.requestFocus()
             return
         }
         if(email.isEmpty())
@@ -112,7 +131,7 @@ class RegisterUserActivity : AppCompatActivity(), View.OnClickListener {
         progressBar.isVisible = true
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener{ task ->
             if(task.isSuccessful){
-                var user: User = User(fullName,age,email)
+                var user: User = User(fullName,email,parent,null)
                 Firebase.database("https://taskapp-b088b-default-rtdb.europe-west1.firebasedatabase.app/")
                     .getReference("Users")
                     .child(FirebaseAuth.getInstance().currentUser!!.uid)
@@ -120,6 +139,7 @@ class RegisterUserActivity : AppCompatActivity(), View.OnClickListener {
                         if(task2.isSuccessful){
                             Toast.makeText(this,"Lietotājs veiksmīgi reģistrēts!",Toast.LENGTH_LONG).show()
                             progressBar.isVisible = false
+                            startActivity(Intent(applicationContext, LoginActivity::class.java))
                         }
                         else{
                             Toast.makeText(this,"Neveiksmīga reģistrācija!",Toast.LENGTH_LONG).show()

@@ -6,8 +6,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import com.example.taskapp.databinding.ActivityLoginBinding
 import com.example.taskapp.databinding.ActivityMainBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -18,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.ktx.Firebase
 
 class LoginActivity : AppCompatActivity(), View.OnClickListener {
@@ -28,6 +31,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var gsc: GoogleSignInClient
     private lateinit var auth: FirebaseAuth
     private lateinit var binding: ActivityLoginBinding
+    private lateinit var loginBtn: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,19 +50,48 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         //google_img=findViewById(R.id.google)
 
         binding.google.setOnClickListener{
-                SignIn()
+                signInGoogle()
         }
         auth = FirebaseAuth.getInstance()
         register = findViewById<TextView>(R.id.register)
         register.setOnClickListener(this)
 
+        loginBtn = findViewById(R.id.login)
+        loginBtn.setOnClickListener(this)
+
 
     }
 
-    fun SignIn(){
+    fun signInGoogle(){
         val intent = gsc.signInIntent;
         startActivityForResult(intent,RC_SIGN_IN)
     }
+    private fun signIn() {
+        val email = binding.email.text.toString()
+        val password = binding.password.text.toString()
+
+        if (email.isEmpty() || password.isEmpty()) {
+            Toast.makeText(this, "Please enter email and password", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d(TAG, "signInWithEmail:success")
+                    val user = auth.currentUser
+                    updateUI(user)
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w(TAG, "signInWithEmail:failure", task.exception)
+                    Toast.makeText(baseContext, "Authentication failed.",
+                        Toast.LENGTH_SHORT).show()
+                    updateUI(null)
+                }
+            }
+    }
+
     companion object{
         const val RC_SIGN_IN = 1001
         const val EXTRA_NAME = "EXTRA NAME"
@@ -67,6 +100,9 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     {
         when(v.id){
             R.id.register -> startActivity(Intent(this, RegisterUserActivity::class.java))
+            R.id.login -> {
+                signIn()
+            }
         }
     }
 
@@ -107,7 +143,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
     private fun updateUI(user: FirebaseUser?) {
         if (user != null) {
-            val intent = Intent(applicationContext, MainActivity::class.java)
+            val intent = Intent(applicationContext, ChildActivity::class.java)
             intent.putExtra(EXTRA_NAME, user.displayName)
             startActivity(intent)
         }

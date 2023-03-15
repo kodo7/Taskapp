@@ -36,7 +36,7 @@
         android:id="@+id/fullname"
         android:layout_below="@id/bannerDescription"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="30dp"
         android:inputType="text"
         android:textSize="24dp"
         android:hint="Pilns vārds"
@@ -44,19 +44,8 @@
     <EditText
         android:layout_width="380dp"
         android:layout_height="wrap_content"
-        android:id="@+id/age"
-        android:layout_below="@id/fullname"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="35dp"
-        android:inputType="number"
-        android:textSize="24dp"
-        android:hint="Vecums"
-        />
-    <EditText
-        android:layout_width="380dp"
-        android:layout_height="wrap_content"
         android:id="@+id/email"
-        android:layout_below="@id/age"
+        android:layout_below="@id/fullname"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="35dp"
         android:inputType="textEmailAddress"
@@ -85,11 +74,37 @@
         android:textSize="24dp"
         android:hint="Parole atkārtoti"
         />
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/confirmPassword"
+        android:layout_marginTop="24dp"
+        android:id="@+id/radioGroup"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true">
+
+        <RadioButton
+            android:id="@+id/option1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Vecāks"
+            android:padding="10dp"
+            android:textSize="20sp"/>
+
+        <RadioButton
+            android:id="@+id/option2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bērns"
+            android:padding="10dp"
+            android:textSize="20sp"/>
+
+    </RadioGroup>
     <Button
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:id="@+id/registerUser"
-        android:layout_below="@id/confirmPassword"
+        android:layout_below="@id/radioGroup"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="24dp"
         android:backgroundTint="@color/purple_700"

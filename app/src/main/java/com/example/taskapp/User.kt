@@ -1,7 +1,8 @@
 package com.example.taskapp
 
-class User(fullName: String, age: String, email: String) {
+class User(fullName: String, email: String, parent: Boolean?, linkedAccounts: List<String>?) {
     val fullName = fullName
-    val age = age
     val email = email
+    val parent = parent
+    val linkedAccounts = linkedAccounts
 }

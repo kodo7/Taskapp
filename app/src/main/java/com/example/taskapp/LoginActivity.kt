@@ -22,6 +22,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
 class LoginActivity : AppCompatActivity(), View.OnClickListener {
@@ -137,7 +138,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                     var userRole : Boolean? = null
                     var userNew: User
                     //if new google sign in, create user in realtime database
-                    if(task.result.additionalUserInfo?.isNewUser != true)
+                    if(task.result.additionalUserInfo?.isNewUser == true)
                     {
                         // Create a new dialog builder
                         val builder = AlertDialog.Builder(this)
@@ -170,7 +171,11 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                             }
                             if(userRole != null)
                             {
-                                userNew = User(user?.displayName,user?.email,userRole, null)
+                                userNew = User(user?.displayName,user?.email, userRole!!)
+                                Firebase.database("https://taskapp-b088b-default-rtdb.europe-west1.firebasedatabase.app/")
+                                    .getReference("Users")
+                                    .child(FirebaseAuth.getInstance().currentUser!!.uid)
+                                    .setValue(userNew)
                                 updateUI(user)
                             }
                             else
@@ -205,11 +210,29 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun updateUI(user: FirebaseUser?) {
-        if (user != null) {
-            val intent = Intent(applicationContext, ChildActivity::class.java)
-            intent.putExtra(EXTRA_NAME, user.displayName)
-            startActivity(intent)
-        }
+        Firebase.database("https://taskapp-b088b-default-rtdb.europe-west1.firebasedatabase.app/")
+            .getReference("Users")
+            .child(FirebaseAuth.getInstance().currentUser!!.uid)
+            .child("parent")
+            .get()
+            .addOnSuccessListener { dataSnapshot ->
+            val role = dataSnapshot.value as Boolean
+                if (user != null && !role) {
+                    val intent = Intent(applicationContext, ChildActivity::class.java)
+                    intent.putExtra(EXTRA_NAME, user.displayName)
+                    startActivity(intent)
+                }
+                if (user != null && role)
+                {
+                    val intent = Intent(applicationContext, ParentActivity::class.java)
+                    intent.putExtra(EXTRA_NAME, user.displayName)
+                    startActivity(intent)
+                }
+            }
+            .addOnFailureListener { exception ->
+                // Handle any errors here
+            }
+
     }
     /*fun RegisterActivity(){
         finish();

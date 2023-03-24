@@ -15,14 +15,14 @@
         android:theme="@style/Theme.Taskapp"
         tools:targetApi="31">
         <activity
-            android:name=".ChildActivity"
+            android:name=".ParentActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".FirstSignInGoogleActivity"
+            android:name=".ChildActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

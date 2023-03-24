@@ -99,6 +99,12 @@ class RegisterUserActivity : AppCompatActivity(), View.OnClickListener {
             editTextFullName.requestFocus()
             return
         }
+        if(!fullName.contains(' '))
+        {
+            editTextFullName.setError("Nepieciešams pilns vārds!")
+            editTextFullName.requestFocus()
+            return
+        }
         if(email.isEmpty())
         {
             editTextEmail.setError("Nepieciešama e-pasta adrese!")
@@ -131,7 +137,7 @@ class RegisterUserActivity : AppCompatActivity(), View.OnClickListener {
         progressBar.isVisible = true
         auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener{ task ->
             if(task.isSuccessful){
-                var user: User = User(fullName,email,parent,null)
+                var user: User = User(fullName,email,parent)
                 Firebase.database("https://taskapp-b088b-default-rtdb.europe-west1.firebasedatabase.app/")
                     .getReference("Users")
                     .child(FirebaseAuth.getInstance().currentUser!!.uid)

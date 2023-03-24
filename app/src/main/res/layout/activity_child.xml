@@ -1,81 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#ffffff"
+    tools:context=".ChildActivity">
+
+    <Button
+        android:id="@+id/logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Izlogoties"
+        android:textSize="14sp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"/>
+
+    <TextView
+        android:id="@+id/total_score_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Kopējais punktu skaits: 100"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:layout_alignParentEnd="true"/>
+
+    <ListView
+        android:id="@+id/task_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:background="#ffffff"
-        tools:context=".ChildActivity"
-        >
+        android:layout_below="@id/total_score_textview"
+        android:layout_above="@id/bottom_buttons_layout"
+        android:layout_marginTop="32dp"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="16dp"/>
 
-        <Button
-            android:id="@+id/logout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Izlogoties"
-            android:textSize="14sp"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"/>
+    <LinearLayout
+        android:id="@+id/bottom_buttons_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="16dp"
+        android:orientation="vertical"
+        android:paddingHorizontal="16dp">
 
-        <TextView
-            android:id="@+id/task_name_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Task name"
-            android:textColor="#000000"
-            android:textSize="18sp"
-            android:layout_below="@id/logout"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="32dp"/>
-
-        <TextView
-            android:id="@+id/task_points_textview"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="10 punkti"
-            android:textColor="#000000"
-            android:textSize="14sp"
-            android:layout_below="@id/task_name_textview"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="16dp"/>
-
-        <Button
-            android:id="@+id/mark_complete_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Atzimēt kā pabeigtu"
-            android:textSize="14sp"
-            android:layout_below="@id/task_points_textview"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="16dp"/>
-
-        <RelativeLayout
-            android:id="@+id/bottom_buttons_layout"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="16dp">
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/completed_tasks_button"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="Pabeigtie\nUzdevumi"
                 android:textSize="14sp"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
+                android:layout_marginEnd="8dp"/>
+
+            <Button
+                android:id="@+id/borrow_points_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Aizņemties\nPunktus"
+                android:textSize="14sp"
+                android:layout_marginStart="8dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+            <Button
+                android:id="@+id/deposit_points_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Iemaksāt\nPunktus"
+                android:textSize="14sp"
                 android:layout_marginEnd="8dp"/>
 
             <Button
                 android:id="@+id/redeem_rewards_button"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="Pirkt\nBalvas"
                 android:textSize="14sp"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
                 android:layout_marginStart="8dp"/>
 
-        </RelativeLayout>
+        </LinearLayout>
 
-    </RelativeLayout>
+    </LinearLayout>
+</RelativeLayout>

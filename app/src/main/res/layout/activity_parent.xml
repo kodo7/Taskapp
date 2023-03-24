@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Logout button -->
+    <Button
+        android:id="@+id/logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Izlogoties"
+        android:textSize="14sp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"/>
+
+    <!-- Add child button -->
+    <Button
+        android:id="@+id/addChildButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pievienot bērnu"
+        android:textSize="14sp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"/>
+
+
+    <!-- Title of the view -->
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Mani bērni"
+        android:textSize="24sp"
+        android:gravity="center_horizontal"
+        android:padding="16dp"
+        android:layout_below="@id/logout"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"/>
+
+    <!-- List of children -->
+
+    <ListView
+        android:id="@+id/childList"
+        android:layout_width="match_parent"
+        android:layout_height="511dp"
+        android:layout_below="@id/title"
+        android:layout_marginTop="0dp"
+        android:dividerHeight="1dp" />
+
+    <Button
+        android:id="@+id/addRewardButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pievienot atlīdzību"
+        android:textSize="14sp"
+        android:layout_below="@id/childList"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_weight ="1"/>
+
+    <!-- Add child form popup -->
+    <LinearLayout
+        android:id="@+id/addChildPopup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFF"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:visibility="gone"
+        android:layout_below="@id/logout">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pievienot bērnu"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Email input field -->
+        <EditText
+            android:id="@+id/emailInput"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Ievadi bērna e-pastu"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"
+            android:singleLine="true" />
+
+        <!-- Cancel and add child buttons -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp">
+
+            <Button
+                android:id="@+id/cancelButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Atcelt"
+                android:textSize="14sp"
+                android:layout_weight="1"
+                android:layout_marginRight="16dp"/>
+
+            <Button
+                android:id="@+id/addChildFormButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pievienot"
+                android:textSize="14sp"
+                android:layout_weight="1"
+                android:layout_marginLeft="16dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

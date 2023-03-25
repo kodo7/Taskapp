@@ -49,17 +49,7 @@
         android:layout_marginTop="0dp"
         android:dividerHeight="1dp" />
 
-    <Button
-        android:id="@+id/addRewardButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Pievienot atlīdzību"
-        android:textSize="14sp"
-        android:layout_below="@id/childList"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_weight ="1"/>
+
 
     <!-- Add child form popup -->
     <LinearLayout

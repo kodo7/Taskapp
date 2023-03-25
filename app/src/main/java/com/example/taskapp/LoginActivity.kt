@@ -1,5 +1,6 @@
 package com.example.taskapp
 
+import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -89,7 +90,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                     Log.w(TAG, "signInWithEmail:failure", task.exception)
                     Toast.makeText(baseContext, "Authentication failed.",
                         Toast.LENGTH_SHORT).show()
-                    updateUI(null)
+                    return@addOnCompleteListener
                 }
             }
     }
@@ -209,6 +210,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             }
     }
 
+    @SuppressLint("SuspiciousIndentation")
     private fun updateUI(user: FirebaseUser?) {
         Firebase.database("https://taskapp-b088b-default-rtdb.europe-west1.firebasedatabase.app/")
             .getReference("Users")

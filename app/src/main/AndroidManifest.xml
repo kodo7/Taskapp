@@ -15,6 +15,20 @@
         android:theme="@style/Theme.Taskapp"
         tools:targetApi="31">
         <activity
+            android:name=".AddTaskActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".ParentChildActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".ParentActivity"
             android:exported="false">
             <meta-data

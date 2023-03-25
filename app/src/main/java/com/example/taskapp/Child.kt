@@ -1,4 +1,6 @@
 package com.example.taskapp
+import android.os.Parcel
+import android.os.Parcelable
 
 data class Child(
     var childId: String? = null,
@@ -6,4 +8,34 @@ data class Child(
     var email: String? = null,
     var currentPoints: Int = 0,
     val name: String? = null
-)
+) : Parcelable {
+    constructor(parcel: Parcel) : this(
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readInt(),
+        parcel.readString()
+    )
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(childId)
+        parcel.writeString(userId)
+        parcel.writeString(email)
+        parcel.writeInt(currentPoints)
+        parcel.writeString(name)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<Child> {
+        override fun createFromParcel(parcel: Parcel): Child {
+            return Child(parcel)
+        }
+
+        override fun newArray(size: Int): Array<Child?> {
+            return arrayOfNulls(size)
+        }
+    }
+}

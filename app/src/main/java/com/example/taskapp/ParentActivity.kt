@@ -3,6 +3,7 @@ package com.example.taskapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.*
 import com.google.firebase.database.*
@@ -70,6 +71,13 @@ class ParentActivity : AppCompatActivity() {
         logoutButton.setOnClickListener {
             logout()
         }
+       /* childListView.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
+            // This code will be executed when an item in the list is clicked
+            val child = childAdapter.getItem(position)
+            Log.d("test", "Item clicked: $child")
+            // You can also perform other actions here, such as starting a new activity or updating the UI
+        }*/
+
     }
 
     private fun addChild() {

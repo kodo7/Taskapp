@@ -1,6 +1,7 @@
 package com.example.taskapp
 
 import android.app.Activity
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -73,6 +74,12 @@ class ChildAdapter(private val context: Activity, private val databaseReference:
         if (view == null) {
             val layoutInflater = LayoutInflater.from(context)
             view = layoutInflater.inflate(R.layout.child_list_item, parent, false)
+            view.setOnClickListener {
+                val child = getItem(position)
+                val intent = Intent(context, ParentChildActivity::class.java)
+                intent.putExtra("child", child)
+                context.startActivity(intent)
+            }
         }
 
         val nameTextView = view!!.findViewById<TextView>(R.id.nameTextView)
@@ -85,7 +92,7 @@ class ChildAdapter(private val context: Activity, private val databaseReference:
             nameTextView.text = child.name
         }
 
-        pointsTextView.text = child.currentPoints.toString()
+        pointsTextView.text = "Punkti: " + child.currentPoints.toString()
         emailTextView.text = child.email
 
         return view

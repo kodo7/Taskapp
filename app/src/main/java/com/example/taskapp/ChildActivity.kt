@@ -30,14 +30,7 @@ class ChildActivity : AppCompatActivity() {
 
 
         // Set the list of tasks in the ListView using the TaskListAdapter
-        taskListAdapter = TaskListAdapter(this, mutableListOf(
-            Task("Clean room", "Vacuum and dust surfaces", 10, false),
-            Task("Wash dishes", "Hand wash dishes and put them away", 5, false),
-            Task("Do laundry", "Wash, dry, and fold laundry", 15, true),
-            Task("Do laundry", "Wash, dry, and fold laundry", 15, false),
-            Task("Do laundry", "Wash, dry, and fold laundry", 15, false)
-        ) as ArrayList<Task>
-        )
+        taskListAdapter = TaskListAdapter(this, "child.childId")
         taskListView.adapter = taskListAdapter
 
         // Set the text of the total score TextView

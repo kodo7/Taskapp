@@ -16,7 +16,7 @@ class AddTaskActivity : AppCompatActivity() {
     private lateinit var addChildButton: Button
     private lateinit var backButton: Button
 
-    private val database = FirebaseDatabase.getInstance("https://taskapp-b088b-default-rtdb.europe-west1.firebasedatabase.app/").reference
+    private val database = FirebaseDatabase.getInstance("https://taskapp-b088b-default-rtdb.europe-west1.firebasedatabase.app/").getReference("tasks")
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,8 +50,9 @@ class AddTaskActivity : AppCompatActivity() {
             return
         }
 
-        val task = Task(title, description, points, false, child?.childId)
-        database.child("tasks").push().setValue(task)
+        val taskId = database.push().key
+        val task = Task(taskId.toString(), title, description, points, false, child?.childId)
+        database.child(task.taskId).setValue(task)
             .addOnSuccessListener {
                 Toast.makeText(this, "Task added successfully", Toast.LENGTH_SHORT).show()
                 finish()

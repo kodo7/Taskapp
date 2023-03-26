@@ -1,18 +1,17 @@
 package com.example.taskapp
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.TextView
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import androidx.appcompat.app.AlertDialog
+import com.google.firebase.database.*
 
-class TaskListAdapter(private val context: Context, private val childId: String) : BaseAdapter() {
+class TaskListAdapter(private val context: Context, private val childId: String?, private val view: String) : BaseAdapter() {
 
     private val databaseRef = FirebaseDatabase.getInstance("https://taskapp-b088b-default-rtdb.europe-west1.firebasedatabase.app/")
         .getReference("tasks").orderByChild("childId").equalTo(childId)
@@ -39,8 +38,25 @@ class TaskListAdapter(private val context: Context, private val childId: String)
                 taskList.clear()
                 for (taskSnapshot in snapshot.children) {
                     val task = taskSnapshot.getValue(Task::class.java)
-                    if (task != null) {
-                        taskList.add(task)
+                    when(view) {
+                        "incomplete" -> {
+                            if (task?.taskComplete == false) {
+                                taskList.add(task)
+                            }
+                        }
+                        "completed" -> {
+                            if (task?.taskComplete == true && task?.verified == false) {
+                                taskList.add(task)
+                            }
+                        }
+                        "verified" -> {
+                            if (task?.verified == true) {
+                                taskList.add(task)
+                            }
+                        }
+                        "all" -> {
+                            taskList.add(task!!)
+                        }
                     }
                 }
                 notifyDataSetChanged()
@@ -84,9 +100,53 @@ class TaskListAdapter(private val context: Context, private val childId: String)
         viewHolder.taskPointsTextView?.text = "${task.points} punkti"
         viewHolder.taskDescriptionTextView?.text = task.taskDescription
         viewHolder.markCompleteButton?.apply {
-            text = if (task.taskComplete) "Task Completed" else "Mark Task as Complete"
+            text = if (task.taskComplete) "Apstiprināt" else "Atzīmēt kā pabeigtu"
             setOnClickListener {
-                // TODO: handle button click
+                val taskRef = FirebaseDatabase.getInstance("https://taskapp-b088b-default-rtdb.europe-west1.firebasedatabase.app/")
+                    .getReference("tasks").child(task.taskId)
+                val childRef = FirebaseDatabase.getInstance("https://taskapp-b088b-default-rtdb.europe-west1.firebasedatabase.app/")
+                    .getReference("children").child(task.childId.toString())
+                if(!task.taskComplete){
+                    val builder = AlertDialog.Builder(context)
+                    builder.setTitle("Pabeigt uzdevumu")
+                    builder.setMessage("Vai esi pārliecināts, ka vēlies atzīmēt šo uzdevumu kā pabeigtu?")
+                    builder.setPositiveButton("Apstiprināt") { _, _ ->
+                        taskRef.child("taskComplete").setValue(!task.taskComplete)
+                    }
+                    builder.setNegativeButton("Atcelt", null)
+                    builder.show()
+                }
+                if(task.taskComplete)
+                {
+                    val builder = AlertDialog.Builder(context)
+                    builder.setTitle("Verificēt uzdevumu")
+                    builder.setMessage("Vai bērns ir pabeidzis uzdevumu?")
+                    builder.setPositiveButton("Apstiprināt") { _, _ ->
+                        taskRef.child("verified").setValue(!task.verified)
+                        childRef.child("currentPoints")
+                            .runTransaction(object : Transaction.Handler {
+                                override fun doTransaction(mutableData: MutableData): Transaction.Result {
+                                    val currentPoints = mutableData.getValue(Int::class.java) ?: 0
+                                    mutableData.value = currentPoints + task.points!!
+                                    return Transaction.success(mutableData)
+                                }
+
+                                override fun onComplete(
+                                    databaseError: DatabaseError?,
+                                    committed: Boolean,
+                                    dataSnapshot: DataSnapshot?
+                                ) {
+                                    if (databaseError != null) {
+                                        // TODO: Handle the error
+                                    } else {
+                                        // The value has been successfully added
+                                    }
+                                }
+                            })
+                    }
+                    builder.setNegativeButton("Atcelt", null)
+                    builder.show()
+                }
             }
         }
 

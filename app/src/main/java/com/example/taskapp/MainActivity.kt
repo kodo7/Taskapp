@@ -3,7 +3,7 @@ package com.example.taskapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.example.taskapp.LoginActivity.Companion.EXTRA_NAME
+import com.example.taskapp.LoginActivity.Companion.EXTRA_EMAIL
 import com.example.taskapp.databinding.ActivityMainBinding
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.name.text = intent.getStringExtra(EXTRA_NAME)
+        binding.name.text = intent.getStringExtra(EXTRA_EMAIL)
         binding.logout.setOnClickListener {
             Firebase.auth.signOut()
 

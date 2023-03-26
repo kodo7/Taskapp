@@ -1,9 +1,11 @@
 package com.example.taskapp
 
-class Task (
+data class Task (
+    var taskId: String = "null",
     var taskName: String? = null,
     var taskDescription: String? = null,
     var points: Int? = null,
     var taskComplete: Boolean = false,
-    var childId: String? = null
+    var childId: String? = null,
+    var verified: Boolean = false
 )

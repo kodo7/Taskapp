@@ -97,7 +97,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
     companion object{
         const val RC_SIGN_IN = 1001
-        const val EXTRA_NAME = "EXTRA NAME"
+        const val EXTRA_EMAIL = "EXTRA EMAIL"
     }
     override fun onClick(v:View)
     {
@@ -221,13 +221,13 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             val role = dataSnapshot.value as Boolean
                 if (user != null && !role) {
                     val intent = Intent(applicationContext, ChildActivity::class.java)
-                    intent.putExtra(EXTRA_NAME, user.displayName)
+                    intent.putExtra(EXTRA_EMAIL, user.email)
                     startActivity(intent)
                 }
                 if (user != null && role)
                 {
                     val intent = Intent(applicationContext, ParentActivity::class.java)
-                    intent.putExtra(EXTRA_NAME, user.displayName)
+                    intent.putExtra(EXTRA_EMAIL, user.email)
                     startActivity(intent)
                 }
             }

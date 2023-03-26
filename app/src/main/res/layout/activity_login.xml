@@ -40,6 +40,7 @@
         android:inputType="textEmailAddress"
         android:textSize="24dp"
         android:hint="E-pasta adrese"
+        android:text="elvijs@elvijs.com"
         />
     <EditText
         android:layout_width="380dp"
@@ -51,6 +52,7 @@
         android:inputType="textPassword"
         android:textSize="24dp"
         android:hint="Parole"
+        android:text="111111"
         />
     <Button
         android:layout_width="match_parent"

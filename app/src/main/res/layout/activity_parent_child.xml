@@ -53,28 +53,72 @@
     <ListView
         android:id="@+id/tasksListView"
         android:layout_width="match_parent"
-        android:layout_height="541dp"
+        android:layout_height="505dp"
         android:layout_below="@id/childPointsTextView"
         android:layout_marginTop="8dp" />
 
-    <Button
-        android:id="@+id/backButton"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/bottom_buttons_layout"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Atpakaļ"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="16dp"
+        android:orientation="vertical"
+        android:paddingHorizontal="16dp">
 
-    <Button
-        android:id="@+id/removeChildButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Noņemt bērnu"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/completedTasksButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Pabeigtie uzdevumi"
+                android:textSize="14sp"
+                android:layout_marginStart="8dp"/>
+
+            <Button
+                android:id="@+id/incompleteTasksButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Nepabeigtie uzdevumi"
+                android:textSize="14sp"
+                android:layout_marginStart="8dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="8dp">
+
+            <Button
+                android:id="@+id/backButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Atpakaļ"
+                android:textSize="14sp"
+                android:layout_marginStart="8dp"/>
+
+            <Button
+                android:id="@+id/removeChildButton"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Noņemt bērnu"
+                android:textSize="14sp"
+                android:layout_marginStart="8dp"
+                android:backgroundTint="#F44336" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
 
 </RelativeLayout>

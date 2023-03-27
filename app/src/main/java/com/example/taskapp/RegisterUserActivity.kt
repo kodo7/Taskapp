@@ -28,11 +28,9 @@ class RegisterUserActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var progressBar: ProgressBar
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        // Write a message to the database
         val database = Firebase.database("https://taskapp-b088b-default-rtdb.europe-west1.firebasedatabase.app/")
         val myRef = database.getReference("message")
 
-        //myRef.setValue("Hello, Worlds!")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register_user)
         auth = FirebaseAuth.getInstance()

@@ -5,8 +5,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.ListView
 
-class IncompleteTasksActivity : AppCompatActivity() {
-
+class VerifiedTasksActivity : AppCompatActivity() {
     private lateinit var tasksListView: ListView
     private lateinit var backButton: Button
     private lateinit var tasksAdapter: TaskListAdapter
@@ -14,13 +13,13 @@ class IncompleteTasksActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_incomplete_tasks)
+        setContentView(R.layout.activity_verified_tasks)
 
         tasksListView=findViewById(R.id.taskListView)
         backButton = findViewById(R.id.backButton)
         val child = intent.getParcelableExtra<Child>("child")
 
-        tasksAdapter = child?.childId?.let { TaskListAdapter(this, it, "incomplete") }!!
+        tasksAdapter = child?.childId?.let { TaskListAdapter(this, it, "verified") }!!
         tasksListView.adapter = tasksAdapter
 
         backButton.setOnClickListener {

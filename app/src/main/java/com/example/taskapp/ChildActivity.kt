@@ -32,17 +32,31 @@ class ChildActivity : AppCompatActivity() {
         val childrenRef = FirebaseDatabase.getInstance("https://taskapp-b088b-default-rtdb.europe-west1.firebasedatabase.app/").getReference("children")
         val query = childrenRef.orderByChild("email").equalTo(childEmail)
 
+
         query.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                val childId = snapshot.children.firstOrNull()?.key
+                val child = snapshot.children.firstOrNull()?.getValue(Child::class.java)
                 val childPoints = snapshot.children.firstOrNull()?.child("currentPoints")?.getValue(Int::class.java)
-                if (childId != null) {
+                if (child?.childId != null) {
                     // Use the childId to add a task
-                    taskListAdapter = TaskListAdapter(this@ChildActivity, childId,"incomplete")
+                    taskListAdapter = TaskListAdapter(this@ChildActivity, child.childId,"incomplete")
                     taskListView.adapter = taskListAdapter
                     // Set the text of the total score TextView
                     val totalScoreTextView: TextView = binding.totalScoreTextview
                     totalScoreTextView.text = "Punkti: " + childPoints.toString()
+
+                    binding.completedTasksButton.setOnClickListener{
+                        val intent = Intent(this@ChildActivity, VerifiedTasksActivity::class.java)
+                        intent.putExtra("child", child)
+                        startActivity(intent)
+                    }
+                    binding.redeemRewardsButton.setOnClickListener{
+                        val intent = Intent(this@ChildActivity, RewardsChildActivity::class.java)
+                        intent.putExtra("child", child)
+                        startActivity(intent)
+                        finish()
+                    }
+
                 } else {
                     // Handle case where no child matches the email
                 }
@@ -53,11 +67,11 @@ class ChildActivity : AppCompatActivity() {
             }
         })
 
+
         // Initialize views
         taskListView = binding.taskListview
         val completedTasksButton: Button = binding.completedTasksButton
         val redeemRewardsButton: Button = binding.redeemRewardsButton
-
 
         // Logout button
         binding.logout.setOnClickListener {
@@ -67,5 +81,6 @@ class ChildActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+
     }
 }

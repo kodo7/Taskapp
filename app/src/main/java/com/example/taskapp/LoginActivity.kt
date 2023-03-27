@@ -161,7 +161,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
                         // Set the positive button for the dialog
                         builder.setPositiveButton("OK") { dialog, which ->
-                            // TODO: Handle the selected role here
                             if(selectedRole == "Vecāks")
                             {
                                 userRole = true
@@ -188,7 +187,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
                         }
 
                             // Set the negative button for the dialog
-                        builder.setNegativeButton("Cancel") { dialog, which ->
+                        builder.setNegativeButton("Atcelt") { dialog, which ->
                             // Dismiss the dialog if the user cancels
                             Firebase.auth.signOut()
                             dialog.dismiss()

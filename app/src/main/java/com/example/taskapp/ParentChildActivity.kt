@@ -20,6 +20,7 @@ class ParentChildActivity : AppCompatActivity() {
     private lateinit var emailTextView: TextView
     private lateinit var pointsTextView: TextView
     private lateinit var tasksListView: ListView
+    private lateinit var addRewardButton: Button
     private lateinit var childRef: DatabaseReference
 
     private lateinit var tasksAdapter: TaskListAdapter
@@ -42,6 +43,7 @@ class ParentChildActivity : AppCompatActivity() {
         tasksListView=findViewById(R.id.tasksListView)
         incompleteTasksButton = findViewById(R.id.incompleteTasksButton)
         completedTasksButton = findViewById(R.id.completedTasksButton)
+        addRewardButton = findViewById(R.id.addRewardButton)
 
         // Set the list of tasks in the ListView using the TaskListAdapter
         tasksAdapter = child.childId?.let { TaskListAdapter(this, it, "completed") }!!
@@ -86,10 +88,19 @@ class ParentChildActivity : AppCompatActivity() {
             builder.show()
         }
         incompleteTasksButton.setOnClickListener {
-            finish()
+            val intent = Intent(this, IncompleteTasksActivity::class.java)
+            intent.putExtra("child", child)
+            startActivity(intent)
         }
         completedTasksButton.setOnClickListener {
-            finish()
+            val intent = Intent(this, VerifiedTasksActivity::class.java)
+            intent.putExtra("child", child)
+            startActivity(intent)
+        }
+        addRewardButton.setOnClickListener{
+            val intent = Intent(this, RewardsParentActivity::class.java)
+            intent.putExtra("child", child)
+            startActivity(intent)
         }
     }
 }

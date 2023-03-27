@@ -103,7 +103,7 @@ class ParentActivity : AppCompatActivity() {
                         // Child with provided email already exists
                         Toast.makeText(
                             this@ParentActivity,
-                            "Child with provided email already exists",
+                            "Bērns jau ir pievienots kādam vecākam",
                             Toast.LENGTH_SHORT
                         ).show()
                     } else {

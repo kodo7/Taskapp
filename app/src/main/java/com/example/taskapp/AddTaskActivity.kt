@@ -46,7 +46,7 @@ class AddTaskActivity : AppCompatActivity() {
         val points = pointsInput.text.toString().toIntOrNull()
 
         if (title.isEmpty() || description.isEmpty() || points == null) {
-            Toast.makeText(this, "Please fill out all fields", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, "Aizpildi visus laukus", Toast.LENGTH_SHORT).show()
             return
         }
 
@@ -54,11 +54,11 @@ class AddTaskActivity : AppCompatActivity() {
         val task = Task(taskId.toString(), title, description, points, false, child?.childId)
         database.child(task.taskId).setValue(task)
             .addOnSuccessListener {
-                Toast.makeText(this, "Task added successfully", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Uzdevums pievienots veiksmīgi", Toast.LENGTH_SHORT).show()
                 finish()
             }
             .addOnFailureListener {
-                Toast.makeText(this, "Failed to add task: ${it.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Neizdevās pievienot uzdevumu: ${it.message}", Toast.LENGTH_SHORT).show()
             }
     }
 }

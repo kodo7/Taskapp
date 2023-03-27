@@ -18,10 +18,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:text="Pievienot uzdevumu"
+        android:text="Pievienot atalgojumu"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"/>
-
 
     <TextView
         android:id="@+id/titleLabel"
@@ -44,30 +43,8 @@
         android:layout_marginEnd="16dp"
         android:layout_below="@+id/titleLabel"
         android:inputType="text"
-        android:hint="Ievadi uzdevuma nosaukumu šeit" />
+        android:hint="Ievadi atalgojuma nosaukumu šeit" />
 
-    <TextView
-        android:id="@+id/descriptionLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Apraksts:"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:layout_marginStart="16dp"
-        android:layout_below="@+id/titleInput"
-        android:layout_marginTop="16dp"
-        android:layout_alignParentStart="true" />
-
-    <EditText
-        android:id="@+id/descriptionInput"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_below="@+id/descriptionLabel"
-        android:inputType="text"
-        android:hint="Ievadi uzdevuma aprakstu šeit" />
 
     <TextView
         android:id="@+id/pointsLabel"
@@ -77,7 +54,7 @@
         android:textSize="16sp"
         android:textStyle="bold"
         android:layout_marginStart="16dp"
-        android:layout_below="@+id/descriptionInput"
+        android:layout_below="@+id/titleInput"
         android:layout_marginTop="16dp"
         android:layout_alignParentStart="true" />
 
@@ -90,6 +67,28 @@
         android:layout_marginEnd="16dp"
         android:layout_below="@+id/pointsLabel"
         android:inputType="number"
-        android:hint="Ievadi atalgojumu" />
+        android:hint="Ievadi atalgojuma maksu" />
+    <TextView
+        android:id="@+id/qtyLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pieejamais daudzums:"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_marginStart="16dp"
+        android:layout_below="@+id/pointsInput"
+        android:layout_marginTop="16dp"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:id="@+id/qtyInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_below="@+id/qtyLabel"
+        android:inputType="number"
+        android:hint="Ievadi atalgojuma pieejamo daudzumu" />
 
 </RelativeLayout>

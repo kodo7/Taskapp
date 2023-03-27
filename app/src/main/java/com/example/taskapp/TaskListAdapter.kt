@@ -100,52 +100,57 @@ class TaskListAdapter(private val context: Context, private val childId: String?
         viewHolder.taskPointsTextView?.text = "${task.points} punkti"
         viewHolder.taskDescriptionTextView?.text = task.taskDescription
         viewHolder.markCompleteButton?.apply {
-            text = if (task.taskComplete) "Apstiprināt" else "Atzīmēt kā pabeigtu"
-            setOnClickListener {
-                val taskRef = FirebaseDatabase.getInstance("https://taskapp-b088b-default-rtdb.europe-west1.firebasedatabase.app/")
-                    .getReference("tasks").child(task.taskId)
-                val childRef = FirebaseDatabase.getInstance("https://taskapp-b088b-default-rtdb.europe-west1.firebasedatabase.app/")
-                    .getReference("children").child(task.childId.toString())
-                if(!task.taskComplete){
-                    val builder = AlertDialog.Builder(context)
-                    builder.setTitle("Pabeigt uzdevumu")
-                    builder.setMessage("Vai esi pārliecināts, ka vēlies atzīmēt šo uzdevumu kā pabeigtu?")
-                    builder.setPositiveButton("Apstiprināt") { _, _ ->
-                        taskRef.child("taskComplete").setValue(!task.taskComplete)
+            if(task.verified) {
+                visibility = View.GONE
+            } else {
+                visibility = View.VISIBLE
+                text = if (task.taskComplete) "Apstiprināt" else "Atzīmēt kā pabeigtu"
+                setOnClickListener {
+                    val taskRef = FirebaseDatabase.getInstance("https://taskapp-b088b-default-rtdb.europe-west1.firebasedatabase.app/")
+                        .getReference("tasks").child(task.taskId)
+                    val childRef = FirebaseDatabase.getInstance("https://taskapp-b088b-default-rtdb.europe-west1.firebasedatabase.app/")
+                        .getReference("children").child(task.childId.toString())
+                    if(!task.taskComplete){
+                        val builder = AlertDialog.Builder(context)
+                        builder.setTitle("Pabeigt uzdevumu")
+                        builder.setMessage("Vai esi pārliecināts, ka vēlies atzīmēt šo uzdevumu kā pabeigtu?")
+                        builder.setPositiveButton("Apstiprināt") { _, _ ->
+                            taskRef.child("taskComplete").setValue(!task.taskComplete)
+                        }
+                        builder.setNegativeButton("Atcelt", null)
+                        builder.show()
                     }
-                    builder.setNegativeButton("Atcelt", null)
-                    builder.show()
-                }
-                if(task.taskComplete)
-                {
-                    val builder = AlertDialog.Builder(context)
-                    builder.setTitle("Verificēt uzdevumu")
-                    builder.setMessage("Vai bērns ir pabeidzis uzdevumu?")
-                    builder.setPositiveButton("Apstiprināt") { _, _ ->
-                        taskRef.child("verified").setValue(!task.verified)
-                        childRef.child("currentPoints")
-                            .runTransaction(object : Transaction.Handler {
-                                override fun doTransaction(mutableData: MutableData): Transaction.Result {
-                                    val currentPoints = mutableData.getValue(Int::class.java) ?: 0
-                                    mutableData.value = currentPoints + task.points!!
-                                    return Transaction.success(mutableData)
-                                }
-
-                                override fun onComplete(
-                                    databaseError: DatabaseError?,
-                                    committed: Boolean,
-                                    dataSnapshot: DataSnapshot?
-                                ) {
-                                    if (databaseError != null) {
-                                        // TODO: Handle the error
-                                    } else {
-                                        // The value has been successfully added
+                    if(task.taskComplete)
+                    {
+                        val builder = AlertDialog.Builder(context)
+                        builder.setTitle("Verificēt uzdevumu")
+                        builder.setMessage("Vai bērns ir pabeidzis uzdevumu?")
+                        builder.setPositiveButton("Apstiprināt") { _, _ ->
+                            taskRef.child("verified").setValue(!task.verified)
+                            childRef.child("currentPoints")
+                                .runTransaction(object : Transaction.Handler {
+                                    override fun doTransaction(mutableData: MutableData): Transaction.Result {
+                                        val currentPoints = mutableData.getValue(Int::class.java) ?: 0
+                                        mutableData.value = currentPoints + task.points!!
+                                        return Transaction.success(mutableData)
                                     }
-                                }
-                            })
+
+                                    override fun onComplete(
+                                        databaseError: DatabaseError?,
+                                        committed: Boolean,
+                                        dataSnapshot: DataSnapshot?
+                                    ) {
+                                        if (databaseError != null) {
+                                            // TODO: Handle the error
+                                        } else {
+                                            // The value has been successfully added
+                                        }
+                                    }
+                                })
+                        }
+                        builder.setNegativeButton("Atcelt", null)
+                        builder.show()
                     }
-                    builder.setNegativeButton("Atcelt", null)
-                    builder.show()
                 }
             }
         }

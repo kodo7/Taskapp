@@ -9,7 +9,7 @@
         android:id="@+id/titleTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Pabeigtie uzdevumi"
+        android:text="Verificētie uzdevumi"
         android:textAlignment="center"
         android:textSize="24sp"/>
 
@@ -26,6 +26,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Atpakaļ"
-        android:layout_gravity="bottom|start"/>
+        android:layout_gravity="bottom|start"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"/>
 
 </LinearLayout>

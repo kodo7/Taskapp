@@ -44,6 +44,19 @@ class ChildActivity : AppCompatActivity() {
                     // Set the text of the total score TextView
                     val totalScoreTextView: TextView = binding.totalScoreTextview
                     totalScoreTextView.text = "Punkti: " + childPoints.toString()
+                    val childRef = FirebaseDatabase.getInstance("https://taskapp-b088b-default-rtdb.europe-west1.firebasedatabase.app/").reference.child("children").child(child.childId!!)
+                    childRef.child("currentPoints").addValueEventListener(object : ValueEventListener {
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                            val childPoints = snapshot.getValue(Int::class.java)
+                            // Set the text of the total score TextView
+                            val totalScoreTextView: TextView = binding.totalScoreTextview
+                            totalScoreTextView.text = "Punkti: " + childPoints.toString()
+                        }
+
+                        override fun onCancelled(error: DatabaseError) {
+                            // Handle error
+                        }
+                    })
 
                     binding.completedTasksButton.setOnClickListener{
                         val intent = Intent(this@ChildActivity, VerifiedTasksActivity::class.java)
@@ -54,7 +67,6 @@ class ChildActivity : AppCompatActivity() {
                         val intent = Intent(this@ChildActivity, RewardsChildActivity::class.java)
                         intent.putExtra("child", child)
                         startActivity(intent)
-                        finish()
                     }
 
                 } else {

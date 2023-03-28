@@ -3,20 +3,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Add Reward Button -->
-    <Button
-        android:id="@+id/bought_rewards_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:text="Pirktās balvas" />
+
 
     <TextView
         android:id="@+id/titleTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/bought_rewards_button"
         android:text="Pieejamās balvas"
         android:textAlignment="center"
         android:textSize="24sp"/>
@@ -25,19 +17,34 @@
     <ListView
         android:id="@+id/rewards_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="608dp"
+        android:layout_above="@+id/backButton"
         android:layout_below="@id/titleTextView"
-        android:layout_above="@+id/back_button"
+        android:layout_marginTop="27dp"
         android:divider="@android:color/transparent"
         android:dividerHeight="10dp" />
 
     <!-- Back Button -->
     <Button
-        android:id="@+id/back_button"
+        android:id="@+id/backButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:text="Back" />
+        android:text="Atpakaļ"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="16dp"/>
+    <TextView
+        android:id="@+id/total_score_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Kopējais punktu skaits: 100"
+        android:textColor="#000000"
+        android:textSize="18sp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:layout_alignParentEnd="true"/>
 
 </RelativeLayout>

@@ -44,7 +44,7 @@
         android:id="@+id/addRewardButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Atalgojumi"
+        android:text="Balvas"
         android:layout_below="@id/addTaskButton"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="8dp"

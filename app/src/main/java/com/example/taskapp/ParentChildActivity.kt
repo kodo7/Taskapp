@@ -3,9 +3,9 @@ package com.example.taskapp
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.ListView
-import android.widget.TextView
+import android.text.InputType
+import android.util.Log
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import com.google.firebase.database.*
 
@@ -75,14 +75,34 @@ class ParentChildActivity : AppCompatActivity() {
         }
 
         removeChildButton.setOnClickListener {
-            // Show a confirmation dialog to remove the child from the parent's list
+            // Show a dialog to input the child email
             val builder = AlertDialog.Builder(this)
             builder.setTitle("Apstiprināt dzēšanu")
-            builder.setMessage("Vai esi pārliecināts, ka vēlies noņemt šo bērnu?")
+            builder.setMessage("Vai esi pārliecināts, ka vēlies noņemt šo bērnu? Ievadi bērna e-pastu, lai apstiprinātu")
+            val input = EditText(this)
+            input.inputType = InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
+            builder.setView(input)
+
+            // Set up the confirmation button
             builder.setPositiveButton("Apstiprināt") { _, _ ->
+                val email = input.text.toString().trim()
                 val childRef = FirebaseDatabase.getInstance("https://taskapp-b088b-default-rtdb.europe-west1.firebasedatabase.app/").getReference("children").child(child.childId!!)
-                childRef.removeValue()
-                finish()
+                childRef.addListenerForSingleValueEvent(object : ValueEventListener {
+                    override fun onDataChange(dataSnapshot: DataSnapshot) {
+                        val child = dataSnapshot.getValue(Child::class.java)
+                        if (child != null && child.email == email) {
+                            childRef.removeValue()
+                            finish()
+                        } else {
+                            Toast.makeText(applicationContext, "Nepareizs e-pasts", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+
+                    override fun onCancelled(databaseError: DatabaseError) {
+                        // Getting Child failed, log a message
+                        Log.w("Fail", "loadPost:onCancelled", databaseError.toException())
+                    }
+                })
             }
             builder.setNegativeButton("Atcelt", null)
             builder.show()

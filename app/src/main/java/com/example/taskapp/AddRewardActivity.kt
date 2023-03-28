@@ -14,6 +14,7 @@ class AddRewardActivity : AppCompatActivity() {
     private lateinit var titleInput: EditText
     private lateinit var pointsInput: EditText
     private lateinit var qtyInput: EditText
+    private lateinit var backButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,8 +23,8 @@ class AddRewardActivity : AppCompatActivity() {
         titleInput = findViewById(R.id.titleInput)
         pointsInput = findViewById(R.id.pointsInput)
         qtyInput = findViewById(R.id.qtyInput)
+        backButton = findViewById(R.id.backButton)
 
-        val backButton: Button = findViewById(R.id.backButton)
         backButton.setOnClickListener {
             finish()
         }

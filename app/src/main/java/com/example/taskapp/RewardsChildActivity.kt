@@ -13,6 +13,7 @@ class RewardsChildActivity : AppCompatActivity() {
     private lateinit var rewardsAdapter: RewardsAdapter
     private lateinit var rewardsRef: DatabaseReference
     private lateinit var backButton: Button
+    private lateinit var totalScore: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +26,14 @@ class RewardsChildActivity : AppCompatActivity() {
         rewardsListView = findViewById(R.id.rewards_list)
         rewardsAdapter = RewardsAdapter(this, child?.childId, mutableListOf(),"all")
         rewardsListView.adapter = rewardsAdapter
+        backButton = findViewById(R.id.backButton)
+        totalScore = findViewById(R.id.total_score_textview)
+
+        //totalScore.text = "Punkti: " + childPoints.toString()
+
+        backButton.setOnClickListener {
+            finish()
+        }
 
         // Set up the database reference to the "rewards" node
         rewardsRef = FirebaseDatabase.getInstance().reference.child("rewards")
@@ -46,12 +55,20 @@ class RewardsChildActivity : AppCompatActivity() {
             }
         })
 
+        // Add a listener to update the total score TextView when the child's points change
+        val childRef = FirebaseDatabase.getInstance("https://taskapp-b088b-default-rtdb.europe-west1.firebasedatabase.app/").reference.child("children").child(
+            child?.childId ?: ""
+        )
 
-        // Set up the back button
-        backButton = findViewById(R.id.back_button)
-        backButton.setOnClickListener {
-            finish()
-        }
+        childRef.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                val childPoints = snapshot.child("currentPoints").getValue(Int::class.java)
+                totalScore.text = "Punkti: " + childPoints.toString()
+            }
 
+            override fun onCancelled(error: DatabaseError) {
+                // Handle error
+            }
+        })
     }
 }

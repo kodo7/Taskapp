@@ -10,14 +10,16 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:text="Add Reward" />
+        android:text="Pievienot balvu"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"/>
     <!-- Title -->
     <TextView
         android:id="@+id/titleTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/add_reward_button"
-        android:text="Visi atalgojumi"
+        android:text="Visas balvas"
         android:textAlignment="center"
         android:textSize="24sp"/>
 
@@ -38,6 +40,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:text="Back" />
+        android:text="Atpakaļ"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"/>
 
 </RelativeLayout>

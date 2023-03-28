@@ -45,6 +45,6 @@
         android:id="@+id/redeem_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Redeem" />
+        android:text="Pirkt" />
 
 </LinearLayout>

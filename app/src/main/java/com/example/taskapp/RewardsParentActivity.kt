@@ -24,7 +24,7 @@ class RewardsParentActivity : AppCompatActivity() {
 
         // Set up the ListView and adapter
         rewardsListView = findViewById(R.id.rewards_list)
-        rewardsAdapter = RewardsAdapter(this, child?.childId, mutableListOf(),"all")
+        rewardsAdapter = RewardsAdapter(this, child?.childId, mutableListOf(),"parent")
         rewardsListView.adapter = rewardsAdapter
 
         // Set up the database reference to the "rewards" node

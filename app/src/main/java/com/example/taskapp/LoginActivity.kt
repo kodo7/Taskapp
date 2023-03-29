@@ -8,12 +8,10 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Button
-import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.example.taskapp.databinding.ActivityLoginBinding
-import com.example.taskapp.databinding.ActivityMainBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -22,14 +20,12 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
 class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
-    private lateinit var google_img: ImageView
-    private lateinit var register: TextView;
+    private lateinit var register: TextView
     private lateinit var gso: GoogleSignInOptions
     private lateinit var gsc: GoogleSignInClient
     private lateinit var auth: FirebaseAuth
@@ -43,6 +39,12 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
         auth = Firebase.auth
 
+        // Check if the user is already authenticated
+        val currentUser = auth.currentUser
+        if (currentUser != null) {
+            updateUI(auth.currentUser)
+        }
+
         //Configure Google Signin
         gso=GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken("410247991388-1h98f5o81gjn76s88rp4v8vim8h3tr4s.apps.googleusercontent.com")
@@ -50,7 +52,6 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             .build()
         gsc=GoogleSignIn.getClient(this,gso)
 
-        //google_img=findViewById(R.id.google)
 
         binding.google.setOnClickListener{
                 signInGoogle()
@@ -66,7 +67,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     fun signInGoogle(){
-        val intent = gsc.signInIntent;
+        val intent = gsc.signInIntent
         startActivityForResult(intent,RC_SIGN_IN)
     }
     private fun signIn() {

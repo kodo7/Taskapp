@@ -18,8 +18,15 @@ class VerifiedTasksActivity : AppCompatActivity() {
         tasksListView=findViewById(R.id.taskListView)
         backButton = findViewById(R.id.backButton)
         val child = intent.getParcelableExtra<Child>("child")
+        val viewChild = intent.getStringExtra("viewChild")
+        var parentView = false
 
-        tasksAdapter = child?.childId?.let { TaskListAdapter(this, it, "verified") }!!
+        if(viewChild == null)
+        {
+            parentView = true
+        }
+
+        tasksAdapter = child?.childId?.let { TaskListAdapter(this, it, "verified", parentView) }!!
         tasksListView.adapter = tasksAdapter
 
         backButton.setOnClickListener {

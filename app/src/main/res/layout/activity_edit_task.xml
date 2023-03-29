@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- Delete Button in Top Right -->
+    <Button
+        android:id="@+id/delete_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:text="Dzēst"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"/>
+
+    <TextView
+        android:id="@+id/task_name_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Uzdevuma nosaukums"
+        android:textSize="18sp"
+        android:layout_marginTop="16dp"
+        android:layout_below="@+id/delete_button"/>
+
+    <EditText
+        android:id="@+id/task_name_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ievadi uzdevuma nosaukumu"
+        android:layout_below="@+id/task_name_label" />
+
+    <TextView
+        android:id="@+id/task_description_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Uzdevuma apraksts"
+        android:textSize="18sp"
+        android:layout_below="@+id/task_name_edittext"
+        android:layout_marginTop="16dp"/>
+
+    <EditText
+        android:id="@+id/task_description_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ievadi uzdevuma aprakstu"
+        android:layout_below="@+id/task_description_label" />
+
+    <TextView
+        android:id="@+id/points_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Punkti"
+        android:textSize="18sp"
+        android:layout_below="@+id/task_description_edittext"
+        android:layout_marginTop="16dp"/>
+
+    <EditText
+        android:id="@+id/points_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ievadi punktus"
+        android:inputType="number"
+        android:layout_below="@+id/points_label" />
+
+    <TextView
+        android:id="@+id/task_complete_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Uzdevums pabeigts"
+        android:textSize="18sp"
+        android:layout_below="@+id/points_edittext"
+        android:layout_marginTop="16dp"/>
+
+    <Switch
+        android:id="@+id/task_complete_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/task_complete_label"
+        android:textOff="No"
+        android:textOn="Yes"/>
+
+    <TextView
+        android:id="@+id/verified_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Verificēts"
+        android:textSize="18sp"
+        android:layout_below="@+id/task_complete_switch"
+        android:layout_marginTop="16dp"/>
+    <Switch
+        android:id="@+id/task_verified_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/verified_label"
+        android:textOff="No"
+        android:textOn="Yes"/>
+    <Button
+        android:id="@+id/save_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="Saglabāt" />
+
+    <!-- Back Button in Bottom Left -->
+    <Button
+        android:id="@+id/back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="16dp"
+        android:text="Atpakaļ" />
+</RelativeLayout>

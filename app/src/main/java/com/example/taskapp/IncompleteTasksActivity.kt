@@ -20,7 +20,7 @@ class IncompleteTasksActivity : AppCompatActivity() {
         backButton = findViewById(R.id.backButton)
         val child = intent.getParcelableExtra<Child>("child")
 
-        tasksAdapter = child?.childId?.let { TaskListAdapter(this, it, "incomplete") }!!
+        tasksAdapter = child?.childId?.let { TaskListAdapter(this, it, "incomplete", true) }!!
         tasksListView.adapter = tasksAdapter
 
         backButton.setOnClickListener {

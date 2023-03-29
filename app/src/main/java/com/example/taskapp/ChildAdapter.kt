@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.TextView
 import com.google.firebase.database.*
-import java.text.SimpleDateFormat
 import java.util.*
 
 class ChildAdapter(private val context: Activity, private val databaseReference: DatabaseReference, private val parentID: String) : BaseAdapter() {

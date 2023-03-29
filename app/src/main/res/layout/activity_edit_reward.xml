@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Atpakaļ"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="16dp"/>
+
+    <Button
+        android:id="@+id/save_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Saglabāt"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"/>
+
+    <Button
+        android:id="@+id/delete_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dzēst"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="16dp"/>
+
+    <TextView
+        android:id="@+id/reward_name_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Balvas nosaukums"
+        android:textSize="18sp"
+        android:layout_below="@+id/delete_button"
+        android:layout_marginTop="16dp"/>
+
+    <EditText
+        android:id="@+id/reward_name_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ievadi balvas nosaukumu"
+        android:layout_below="@+id/reward_name_label"/>
+
+    <TextView
+        android:id="@+id/cost_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Maksa"
+        android:textSize="18sp"
+        android:layout_below="@+id/reward_name_edittext"
+        android:layout_marginTop="16dp"/>
+
+    <EditText
+        android:id="@+id/cost_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ievadi balvas cenu"
+        android:inputType="number"
+        android:layout_below="@+id/cost_label"/>
+
+    <TextView
+        android:id="@+id/qty_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Daudzums"
+        android:textSize="18sp"
+        android:layout_below="@+id/cost_edittext"
+        android:layout_marginTop="16dp"/>
+
+    <EditText
+        android:id="@+id/qty_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ievadi balvas daudzumu"
+        android:inputType="number"
+        android:layout_below="@+id/qty_label"/>
+
+    <TextView
+        android:id="@+id/bought_qty_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nopirktais daudzums"
+        android:textSize="18sp"
+        android:layout_below="@+id/qty_edittext"
+        android:layout_marginTop="16dp"/>
+
+    <EditText
+        android:id="@+id/bought_qty_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Ievadi nopirkto daudzumu"
+        android:inputType="number"
+        android:layout_below="@+id/bought_qty_label"/>
+
+</RelativeLayout>

@@ -1,6 +1,7 @@
 package com.example.taskapp
 
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +12,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import com.google.firebase.database.*
 
-class TaskListAdapter(private val context: Context, private val childId: String?, private val view: String) : BaseAdapter() {
+class TaskListAdapter(private val context: Context, private val childId: String?, private val view: String, private val parentView: Boolean) : BaseAdapter() {
 
     private val databaseRef = FirebaseDatabase.getInstance("https://taskapp-b088b-default-rtdb.europe-west1.firebasedatabase.app/")
         .getReference("tasks").orderByChild("childId").equalTo(childId)
@@ -95,6 +96,15 @@ class TaskListAdapter(private val context: Context, private val childId: String?
         }
 
         val task = getItem(position) as Task
+
+        if(parentView)
+        {
+            view.setOnClickListener {
+                val intent = Intent(context, EditTaskActivity::class.java)
+                intent.putExtra("taskId", task.taskId)
+                context.startActivity(intent)
+            }
+        }
 
         viewHolder.taskNameTextView?.text = task.taskName
         viewHolder.taskPointsTextView?.text = "${task.points} punkti"

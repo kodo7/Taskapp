@@ -1,6 +1,7 @@
 package com.example.taskapp
 
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -97,6 +98,14 @@ class RewardsAdapter(private val context: Context, private val childId: String?,
             holder.redeemButton = view.findViewById(R.id.redeem_button)
             holder.boughtQuantityTextView = view.findViewById(R.id.bought_quantity)
 
+            if(selectedView == "parent") {
+                view.setOnClickListener {
+                    val reward = getItem(position) as Reward
+                    val intent = Intent(context, EditRewardActivity::class.java)
+                    intent.putExtra("rewardId", reward.rewardId)
+                    context.startActivity(intent)
+                }
+            }
 
             // Retrieve the child's current points from the database
             childRef.child("currentPoints").addListenerForSingleValueEvent(object : ValueEventListener {
@@ -142,6 +151,9 @@ class RewardsAdapter(private val context: Context, private val childId: String?,
                                 rewardsList[position] = selectedReward.copy(boughtQty = selectedReward.boughtQty + 1)
                                 notifyDataSetChanged()
                             }
+                            else{
+                                Toast.makeText(context, "Balva nav pieejama", Toast.LENGTH_SHORT).show()
+                            }
                         }
                         .setNegativeButton("Atcelt") { dialog, _ -> dialog.cancel() }
 
@@ -152,6 +164,7 @@ class RewardsAdapter(private val context: Context, private val childId: String?,
                     // Show an error message if the child doesn't have enough points
                     Toast.makeText(context, "Tev nepietiek punkti, lai pirktu šo balvu", Toast.LENGTH_SHORT).show()
                 }
+
             }
 
             view.tag = holder
@@ -167,7 +180,7 @@ class RewardsAdapter(private val context: Context, private val childId: String?,
         holder.boughtQuantityTextView.text = "Nopirktais daudzums: ${reward.boughtQty}"
 
         // Hide the redeem button if the view is "parent"
-        if (selectedView == "parent") {
+        if (selectedView == "parent" || reward.qty <= 0) {
             holder.redeemButton.visibility = View.GONE
         } else {
             holder.redeemButton.visibility = View.VISIBLE

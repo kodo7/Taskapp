@@ -46,7 +46,7 @@ class ParentChildActivity : AppCompatActivity() {
         addRewardButton = findViewById(R.id.addRewardButton)
 
         // Set the list of tasks in the ListView using the TaskListAdapter
-        tasksAdapter = child.childId?.let { TaskListAdapter(this, it, "completed") }!!
+        tasksAdapter = child.childId?.let { TaskListAdapter(this, it, "completed", true) }!!
         tasksListView.adapter = tasksAdapter
 
         // Set the child's name, email, and points

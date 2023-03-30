@@ -2,6 +2,7 @@ package com.example.taskapp
 
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -9,8 +10,10 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import com.google.firebase.database.*
+import java.time.LocalDate
 
 class TaskListAdapter(private val context: Context, private val childId: String?, private val view: String, private val parentView: Boolean) : BaseAdapter() {
 
@@ -24,12 +27,16 @@ class TaskListAdapter(private val context: Context, private val childId: String?
         var taskPointsTextView: TextView? = null
         var taskDescriptionTextView: TextView? = null
         var markCompleteButton: Button? = null
+        var taskStartDateTextView : TextView? = null
+        var taskEndDateTextView : TextView? = null
 
         init {
             this.taskNameTextView = row?.findViewById(R.id.task_name_textview)
             this.taskPointsTextView = row?.findViewById(R.id.task_points_textview)
             this.taskDescriptionTextView = row?.findViewById(R.id.task_description_textview)
             this.markCompleteButton = row?.findViewById(R.id.mark_complete_button)
+            this.taskStartDateTextView = row?.findViewById(R.id.task_startDate_textview)
+            this.taskEndDateTextView = row?.findViewById(R.id.task_endDate_textview)
         }
     }
 
@@ -55,9 +62,18 @@ class TaskListAdapter(private val context: Context, private val childId: String?
                                 taskList.add(task)
                             }
                         }
-                        "all" -> {
-                            taskList.add(task!!)
-                        }
+                    }
+                }
+                when(view) {
+                    "incomplete" -> {
+                        taskList.sortWith(Comparator { task1, task2 ->
+                            task1.startDate.compareTo(task2.startDate)
+                        })
+                    }
+                    "completed", "verified" -> {
+                        taskList.sortWith(Comparator { task1, task2 ->
+                            task2.endDate.compareTo(task1.endDate)
+                        })
                     }
                 }
                 notifyDataSetChanged()
@@ -81,6 +97,7 @@ class TaskListAdapter(private val context: Context, private val childId: String?
         return taskList.size
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View {
         val view: View
         val viewHolder: ViewHolder
@@ -106,9 +123,11 @@ class TaskListAdapter(private val context: Context, private val childId: String?
             }
         }
 
-        viewHolder.taskNameTextView?.text = task.taskName
-        viewHolder.taskPointsTextView?.text = "${task.points} punkti"
-        viewHolder.taskDescriptionTextView?.text = task.taskDescription
+        viewHolder.taskNameTextView?.text = "Nosaukums: ${task.taskName}"
+        viewHolder.taskPointsTextView?.text = "Izmaksa: ${task.points} punkti"
+        viewHolder.taskDescriptionTextView?.text = "Apraksts: ${task.taskDescription}"
+        viewHolder.taskStartDateTextView?.text = "Izveidošanas datums: ${task.startDate}"
+        viewHolder.taskEndDateTextView?.text = "Pabeigšanas datums: ${task.endDate}"
         viewHolder.markCompleteButton?.apply {
             if(task.verified) {
                 visibility = View.GONE
@@ -126,6 +145,7 @@ class TaskListAdapter(private val context: Context, private val childId: String?
                         builder.setMessage("Vai esi pārliecināts, ka vēlies atzīmēt šo uzdevumu kā pabeigtu?")
                         builder.setPositiveButton("Apstiprināt") { _, _ ->
                             taskRef.child("taskComplete").setValue(!task.taskComplete)
+                            taskRef.child("endDate").setValue(LocalDate.now().toString())
                         }
                         builder.setNegativeButton("Atcelt", null)
                         builder.show()

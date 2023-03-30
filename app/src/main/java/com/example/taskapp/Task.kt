@@ -7,5 +7,7 @@ data class Task (
     var points: Int? = null,
     var taskComplete: Boolean = false,
     var childId: String? = null,
-    var verified: Boolean = false
+    var verified: Boolean = false,
+    val startDate: String = "",
+    val endDate: String = ""
 )

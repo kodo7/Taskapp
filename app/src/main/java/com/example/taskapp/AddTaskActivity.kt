@@ -1,11 +1,14 @@
 package com.example.taskapp
 
+import android.os.Build
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.FirebaseDatabase
+import java.time.LocalDate
 
 class AddTaskActivity : AppCompatActivity() {
 
@@ -18,6 +21,7 @@ class AddTaskActivity : AppCompatActivity() {
     private val database = FirebaseDatabase.getInstance("https://taskapp-b088b-default-rtdb.europe-west1.firebasedatabase.app/").getReference("tasks")
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_task)
@@ -37,6 +41,7 @@ class AddTaskActivity : AppCompatActivity() {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun addTask() {
         // Get the child object from the intent
         val child = intent.getParcelableExtra<Child>("child")
@@ -50,7 +55,7 @@ class AddTaskActivity : AppCompatActivity() {
         }
 
         val taskId = database.push().key
-        val task = Task(taskId.toString(), title, description, points, false, child?.childId)
+        val task = Task(taskId.toString(), title, description, points, false, child?.childId, false, LocalDate.now().toString(), "Nepabeigts")
         database.child(task.taskId).setValue(task)
             .addOnSuccessListener {
                 Toast.makeText(this, "Uzdevums pievienots veiksmīgi", Toast.LENGTH_SHORT).show()

@@ -28,6 +28,20 @@
         android:textSize="14sp"
         android:textColor="#000000"
         android:layout_marginTop="8dp"/>
+    <TextView
+        android:id="@+id/task_startDate_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:textColor="#000000"
+        android:layout_marginTop="8dp"/>
+    <TextView
+        android:id="@+id/task_endDate_textview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:textColor="#000000"
+        android:layout_marginTop="8dp"/>
 
     <Button
         android:id="@+id/mark_complete_button"

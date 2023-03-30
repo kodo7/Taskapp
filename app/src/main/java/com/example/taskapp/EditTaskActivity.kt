@@ -1,13 +1,13 @@
 package com.example.taskapp
 
+import android.os.Build
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Switch
-import android.widget.Toast
+import android.widget.*
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.database.FirebaseDatabase
+import java.time.LocalDate
 
 class EditTaskActivity : AppCompatActivity() {
     private lateinit var taskId: String
@@ -17,6 +17,7 @@ class EditTaskActivity : AppCompatActivity() {
     private lateinit var taskCompleteSwitch: Switch
     private lateinit var taskVerifiedSwitch: Switch
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_task)
@@ -24,6 +25,9 @@ class EditTaskActivity : AppCompatActivity() {
         // Get the taskId from the previous activity
         taskId = intent.getStringExtra("taskId")!!
         var childId: String? = null
+        var startDate = ""
+        var endDate = ""
+        var taskComplete = false
 
         // Initialize the UI elements
         taskNameEditText = findViewById(R.id.task_name_edittext)
@@ -46,6 +50,9 @@ class EditTaskActivity : AppCompatActivity() {
                 taskCompleteSwitch.isChecked = task.taskComplete
                 taskVerifiedSwitch.isChecked = task.verified
                 childId = task.childId
+                startDate = task.startDate
+                endDate = task.endDate
+                taskComplete = task.taskComplete
             }
         }.addOnFailureListener {
             Toast.makeText(this, "Failed to load task data", Toast.LENGTH_SHORT).show()
@@ -105,8 +112,48 @@ class EditTaskActivity : AppCompatActivity() {
                 isValid = false
             }
 
+
             if (isValid) {
-                val task = Task(taskId, name, description, points, complete, childId, verified)
+                val task: Task
+                if(taskComplete && !complete){
+                    task = Task(
+                        taskId,
+                        name,
+                        description,
+                        points,
+                        complete,
+                        childId,
+                        verified,
+                        startDate,
+                        "Nepabeigts"
+                    )
+                }
+                else if(!taskComplete && complete){
+                    task = Task(
+                        taskId,
+                        name,
+                        description,
+                        points,
+                        complete,
+                        childId,
+                        verified,
+                        startDate,
+                        LocalDate.now().toString()
+                    )
+                }
+                else {
+                    task = Task(
+                        taskId,
+                        name,
+                        description,
+                        points,
+                        complete,
+                        childId,
+                        verified,
+                        startDate,
+                        endDate
+                    )
+                }
                 taskRef.setValue(task).addOnSuccessListener {
                     Toast.makeText(this, "Uzdevums saglabāts", Toast.LENGTH_SHORT).show()
                     finish()

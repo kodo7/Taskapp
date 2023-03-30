@@ -8,6 +8,7 @@ import android.widget.ListView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.taskapp.databinding.ActivityChildBinding
 import com.google.firebase.auth.ktx.auth
@@ -70,9 +71,18 @@ class ChildActivity : AppCompatActivity() {
                             val activeLoanId = activeLoanSnapshot?.key
                             val activeLoan = activeLoanSnapshot?.getValue(Loan::class.java)
                             if (activeLoan != null && LocalDate.now().toString() >= activeLoan.endDate) {
-                                // update the loan status to "inactive"
+                                // update the loan status to "inactive" and deduct points from child
                                 activeLoan.status = "inactive"
                                 activeLoanSnapshot?.ref?.setValue(activeLoan)
+                                val loanPaybackAmount = (activeLoan.amount * 1.1).toInt()
+                                child.currentPoints -= loanPaybackAmount
+                                childRef.setValue(child)
+                                val dialogBuilder = AlertDialog.Builder(this@ChildActivity)
+                                dialogBuilder.setMessage("No tevis tika atskaitīti $loanPaybackAmount punkti sakarā ar aizdevumu")
+                                    .setCancelable(false)
+                                    .setPositiveButton("Ok") { dialog, _ -> dialog.dismiss() }
+                                val alert = dialogBuilder.create()
+                                alert.show()
                             }
                         }
 

@@ -1,78 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/loanAmountLabel"
-        android:text="Loan Amount"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <EditText
-        android:id="@+id/loanAmountEditText"
-        android:inputType="number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/loanAmountLabel"/>
+        android:text="Aizņēmuma daudzums:"
+        android:textSize="24dp"/>
 
+    <EditText
+        android:id="@+id/loanAmountEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/loanAmountLabel"
+        android:layout_marginTop="8dp"
+        android:inputType="number"
+        android:textSize="24dp"/>
 
     <TextView
-        android:text="Loan Status"
+        android:id="@+id/loanStatusLabel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/loanAmountEditText"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="16dp"
+        android:text="Aizņemuma statuss: "
+        android:textSize="24dp"/>
+
     <TextView
         android:id="@+id/loanStatusTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/loanAmountEditText"
-        android:layout_marginTop="8dp"/>
+        android:layout_below="@id/loanStatusLabel"
+        android:layout_marginTop="8dp"
+        android:textSize="24dp"/>
 
     <TextView
-        android:text="Loan Start Date"
+        android:id="@+id/loanStartDateLabel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/loanStatusTextView"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="16dp"
+        android:text="Aizņemuma sākšanas datums:"
+        android:textSize="24dp"/>
+
     <TextView
         android:id="@+id/loanStartDateTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/loanStatusTextView"
-        android:layout_marginTop="8dp"/>
+        android:layout_below="@id/loanStartDateLabel"
+        android:layout_marginTop="8dp"
+        android:textSize="24dp"/>
 
     <TextView
-        android:text="Loan End Date"
+        android:id="@+id/loanEndDateLabel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/loanStartDateTextView"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="16dp"
+        android:text="Aizņemuma beigu datums:"
+        android:textSize="24dp"/>
+
     <TextView
         android:id="@+id/loanEndDateTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/loanStartDateTextView"
-        android:layout_marginTop="8dp"/>
+        android:layout_below="@id/loanEndDateLabel"
+        android:layout_marginTop="8dp"
+        android:textSize="24dp"/>
 
     <Button
         android:id="@+id/backButton"
-        android:text="Back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginStart="17dp"
+        android:layout_marginBottom="18dp"
+        android:text="Atpakaļ" />
 
     <Button
         android:id="@+id/takeLoanButton"
-        android:text="Take Loan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="16dp"
+        android:text="Apstiprināt aizņēmumu" />
 
 </RelativeLayout>

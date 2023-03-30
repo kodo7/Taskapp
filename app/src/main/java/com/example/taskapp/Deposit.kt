@@ -8,6 +8,5 @@ data class Deposit(
     val amount: Int,
     val interestRate: Int,
     val startDate: LocalDate,
-    val endDate: LocalDate,
     val status: String
 )

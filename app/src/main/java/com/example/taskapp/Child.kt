@@ -7,14 +7,22 @@ data class Child(
     var userId: String? = null,
     var email: String? = null,
     var currentPoints: Int = 0,
-    val name: String? = null
+    val name: String? = null,
+    var loanRate: Int = 1,
+    var depositRate: Int = 1,
+    var maxDepositPercentage: Int = 1,
+    var maxLoanPercentage: Int = 1
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
         parcel.readString(),
         parcel.readString(),
         parcel.readInt(),
-        parcel.readString()
+        parcel.readString(),
+        parcel.readInt(),
+        parcel.readInt(),
+        parcel.readInt(),
+        parcel.readInt()
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -23,6 +31,10 @@ data class Child(
         parcel.writeString(email)
         parcel.writeInt(currentPoints)
         parcel.writeString(name)
+        parcel.writeInt(loanRate)
+        parcel.writeInt(depositRate)
+        parcel.writeInt(maxDepositPercentage)
+        parcel.writeInt(maxLoanPercentage)
     }
 
     override fun describeContents(): Int {

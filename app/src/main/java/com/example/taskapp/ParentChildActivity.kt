@@ -8,6 +8,8 @@ import android.util.Log
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import com.google.firebase.database.*
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 class ParentChildActivity : AppCompatActivity() {
 
@@ -121,6 +123,92 @@ class ParentChildActivity : AppCompatActivity() {
             val intent = Intent(this, RewardsParentActivity::class.java)
             intent.putExtra("child", child)
             startActivity(intent)
+        }
+        val ratesButton = findViewById<Button>(R.id.ratesButton)
+
+        ratesButton.setOnClickListener {
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Bērna likmes")
+
+            val layout = LinearLayout(this)
+            layout.orientation = LinearLayout.VERTICAL
+            layout.setPadding(50, 0, 50, 0)
+
+            val loanRateLabel = TextView(this)
+            loanRateLabel.text = "Aizdevuma 1 nedēļas likme (%)"
+            layout.addView(loanRateLabel)
+
+            val loanRateEditText = EditText(this)
+            loanRateEditText.inputType = InputType.TYPE_CLASS_NUMBER
+            val loanRate = child?.loanRate ?: 0
+            loanRateEditText.setText(loanRate.toString())
+            layout.addView(loanRateEditText)
+
+            val depositRateLabel = TextView(this)
+            depositRateLabel.text = "Ieguldījuma 1 nedēļas likme (%)"
+            layout.addView(depositRateLabel)
+
+            val depositRateEditText = EditText(this)
+            depositRateEditText.inputType = InputType.TYPE_CLASS_NUMBER
+            val depositRate = child?.depositRate ?: 0
+            depositRateEditText.setText(depositRate.toString())
+            layout.addView(depositRateEditText)
+
+            val maxLoanPercentageLabel = TextView(this)
+            maxLoanPercentageLabel.text = "Maksimālais aizdevuma daudzums (%)"
+            layout.addView(maxLoanPercentageLabel)
+
+            val maxLoanPercentageEditText = EditText(this)
+            maxLoanPercentageEditText.inputType = InputType.TYPE_CLASS_NUMBER
+            val maxLoanPercentage = child?.maxLoanPercentage ?: 0
+            maxLoanPercentageEditText.setText(maxLoanPercentage.toString())
+            layout.addView(maxLoanPercentageEditText)
+
+            val maxDepositPercentageLabel = TextView(this)
+            maxDepositPercentageLabel.text = "Maksimālais ieguldījuma daudzums (%)"
+            layout.addView(maxDepositPercentageLabel)
+
+            val maxDepositPercentageEditText = EditText(this)
+            maxDepositPercentageEditText.inputType = InputType.TYPE_CLASS_NUMBER
+            val maxDepositPercentage = child?.maxDepositPercentage ?: 0
+            maxDepositPercentageEditText.setText(maxDepositPercentage.toString())
+            layout.addView(maxDepositPercentageEditText)
+
+            builder.setView(layout)
+
+            builder.setPositiveButton("OK") { dialog, which ->
+                val updatedLoanRate = loanRateEditText.text.toString().toIntOrNull()
+                val updatedDepositRate = depositRateEditText.text.toString().toIntOrNull()
+                val updatedMaxLoanPercentage = maxLoanPercentageEditText.text.toString().toIntOrNull()
+                val updatedMaxDepositPercentage = maxDepositPercentageEditText.text.toString().toIntOrNull()
+
+                if (updatedLoanRate in 0..100 &&
+                    updatedDepositRate in 0..100 &&
+                    updatedMaxLoanPercentage in 0..100 &&
+                    updatedMaxDepositPercentage in 0..100) {
+
+                    child?.loanRate = updatedLoanRate ?: 0
+                    child?.depositRate = updatedDepositRate ?: 0
+                    child?.maxLoanPercentage = updatedMaxLoanPercentage ?: 0
+                    child?.maxDepositPercentage = updatedMaxDepositPercentage ?: 0
+
+                    // Save the updated child object to the Realtime Database
+                    val database = FirebaseDatabase.getInstance("https://taskapp-b088b-default-rtdb.europe-west1.firebasedatabase.app/").reference
+                    val childRef = database.child("children").child(child?.childId ?: "")
+                    childRef.setValue(child)
+
+                    Toast.makeText(this, "Likmes atjauninātas!", Toast.LENGTH_SHORT).show()
+
+                } else {
+                    Toast.makeText(this, "Nepareizas vērtības likmēm, mēģini vēlreiz!", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+            builder.setNegativeButton("Cancel") { dialog, which ->
+                dialog.cancel()
+            }
+
+            builder.show()
         }
     }
 }

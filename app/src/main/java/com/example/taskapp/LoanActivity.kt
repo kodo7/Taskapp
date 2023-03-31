@@ -102,15 +102,15 @@ class LoanActivity : AppCompatActivity() {
         takeLoanButton.setOnClickListener {
             // Get input from user
             val amount = loanAmountEditText.text.toString().toInt()
-            val interestRate = 10
+            val interestRate = child?.loanRate
 
             // Retrieve current points of the child from Firebase Realtime Database
             val currentPoints = child?.currentPoints
-            val loanMax = currentPoints!! * 0.3
+            val loanMax = currentPoints!! * (child.maxLoanPercentage.toDouble() / 100)
 
             // Check if the loan amount exceeds 10% of the current points
             if (amount > loanMax) {
-                val message = "Aizņēmuma daudzums nedrīkst pārsniegt 30% no taviem punktiem (${loanMax.roundToInt()} punkti ir maksimālais daudzums)"
+                val message = "Aizņēmuma daudzums nedrīkst pārsniegt ${child.maxLoanPercentage}% no taviem punktiem (${loanMax.roundToInt()} punkti ir maksimālais daudzums)"
                 AlertDialog.Builder(this)
                     .setTitle("Aizņēmuma kļūda")
                     .setMessage(message)
@@ -124,7 +124,7 @@ class LoanActivity : AppCompatActivity() {
                     borrowId = database.push().key!!,
                     childId = child?.childId.toString(),
                     amount = amount,
-                    interestRate = interestRate,
+                    interestRate = interestRate!!,
                     startDate = LocalDate.now().toString(),
                     endDate = LocalDate.now().plusWeeks(1).toString(),
                     status = "active"
@@ -133,7 +133,7 @@ class LoanActivity : AppCompatActivity() {
                 // Show confirmation dialog before proceeding with the loan
                 val builder = AlertDialog.Builder(this@LoanActivity)
                 builder.setTitle("Apstiprināt aizņēmumu")
-                val paybackAmount = amount*(interestRate.toDouble()/100+1)
+                val paybackAmount = amount*(interestRate!!.toDouble()/100+1)
                 builder.setMessage("Vai esi pārliecināts, ka vēlies aizņemties $amount punktus? Pēc nedeļas tas tiek atmaksāts ar $interestRate% likmi (${paybackAmount.toInt()} punkti)")
 
                 // Add the buttons

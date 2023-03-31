@@ -101,15 +101,15 @@ class DepositActivity : AppCompatActivity() {
         depositButton.setOnClickListener {
             // Get input from user
             val amount = depositAmountEditText.text.toString().toInt()
-            val interestRate = 5
+            val interestRate = child?.depositRate
 
             // Retrieve current points of the child from Firebase Realtime Database
             val currentPoints = child?.currentPoints
-            val depositMax = currentPoints!! * 0.3
+            val depositMax = currentPoints!! * (child.maxDepositPercentage.toDouble()/100)
 
             // Check if the deposit amount exceeds 10% of the current points
             if (amount > depositMax) {
-                val message = "Ieguldījuma daudzums nedrīkst pārsniegt 30% no taviem punktiem (${depositMax.roundToInt()} punkti ir maksimālais daudzums)"
+                val message = "Ieguldījuma daudzums nedrīkst pārsniegt ${child.maxDepositPercentage}% no taviem punktiem (${depositMax.roundToInt()} punkti ir maksimālais daudzums)"
                 AlertDialog.Builder(this)
                     .setTitle("Ieguldījuma kļūda")
                     .setMessage(message)
@@ -123,7 +123,7 @@ class DepositActivity : AppCompatActivity() {
                     depositId = database.push().key!!,
                     childId = child?.childId.toString(),
                     amount = amount,
-                    interestRate = interestRate,
+                    interestRate = interestRate!!,
                     startDate = LocalDate.now().toString(),
                     endDate = LocalDate.now().plusWeeks(1).toString(),
                     status = "active"

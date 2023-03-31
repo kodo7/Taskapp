@@ -32,13 +32,13 @@
 
     <Button
         android:id="@+id/addTaskButton"
-        android:layout_width="wrap_content"
+        android:layout_width="189dp"
         android:layout_height="wrap_content"
-        android:text="Jauns uzdevums"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"/>
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="16dp"
+        android:text="Jauns uzdevums" />
 
     <Button
         android:id="@+id/addRewardButton"
@@ -49,13 +49,22 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"/>
+    <Button
+        android:id="@+id/ratesButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Likmes"
+        android:layout_below="@id/addTaskButton"
+        android:layout_toStartOf="@id/addRewardButton"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"/>
 
     <ListView
         android:id="@+id/tasksListView"
         android:layout_width="match_parent"
         android:layout_height="505dp"
         android:layout_below="@id/childPointsTextView"
-        android:layout_marginTop="8dp" />
+        android:layout_marginTop="28dp" />
 
     <LinearLayout
         android:id="@+id/bottom_buttons_layout"

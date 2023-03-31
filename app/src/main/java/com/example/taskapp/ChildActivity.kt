@@ -74,11 +74,44 @@ class ChildActivity : AppCompatActivity() {
                                 // update the loan status to "inactive" and deduct points from child
                                 activeLoan.status = "inactive"
                                 activeLoanSnapshot?.ref?.setValue(activeLoan)
-                                val loanPaybackAmount = (activeLoan.amount * 1.1).toInt()
-                                child.currentPoints -= loanPaybackAmount
+                                val loanPaybackAmount = activeLoan.amount*(activeLoan.interestRate.toDouble()/100+1)
+                                child.currentPoints -= loanPaybackAmount.toInt()
                                 childRef.setValue(child)
                                 val dialogBuilder = AlertDialog.Builder(this@ChildActivity)
-                                dialogBuilder.setMessage("No tevis tika atskaitīti $loanPaybackAmount punkti sakarā ar aizdevumu")
+                                dialogBuilder.setMessage("No tevis tika atskaitīti ${loanPaybackAmount.toInt()} punkti sakarā ar aizdevumu")
+                                    .setCancelable(false)
+                                    .setPositiveButton("Ok") { dialog, _ -> dialog.dismiss() }
+                                val alert = dialogBuilder.create()
+                                alert.show()
+                            }
+                        }
+
+                        override fun onCancelled(error: DatabaseError) {
+                            // Handle error
+                        }
+                    })
+
+                    val depositsQuery = database.child("deposits")
+                        .orderByChild("childId")
+                        .equalTo(child?.childId)
+
+                    depositsQuery.addListenerForSingleValueEvent(object : ValueEventListener {
+                        @RequiresApi(Build.VERSION_CODES.O)
+                        override fun onDataChange(snapshot: DataSnapshot) {
+                            val activeLoanSnapshot = snapshot.children.firstOrNull {
+                                it.child("status").getValue(String::class.java) == "active"
+                            }
+                            val activeDepositId = activeLoanSnapshot?.key
+                            val activeDeposit = activeLoanSnapshot?.getValue(Deposit::class.java)
+                            if (activeDeposit != null && LocalDate.now().toString() >= activeDeposit.endDate) {
+                                // update the loan status to "inactive" and deduct points from child
+                                activeDeposit.status = "inactive"
+                                activeLoanSnapshot?.ref?.setValue(activeDeposit)
+                                val depositPaybackAmount = activeDeposit.amount*(activeDeposit.interestRate.toDouble()/100+1)
+                                child.currentPoints += depositPaybackAmount.toInt()
+                                childRef.setValue(child)
+                                val dialogBuilder = AlertDialog.Builder(this@ChildActivity)
+                                dialogBuilder.setMessage("Tev tika pieskaitīti ${depositPaybackAmount.toInt()} punkti sakarā ar ieguldījumu")
                                     .setCancelable(false)
                                     .setPositiveButton("Ok") { dialog, _ -> dialog.dismiss() }
                                 val alert = dialogBuilder.create()

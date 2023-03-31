@@ -25,7 +25,6 @@ class LoanActivity : AppCompatActivity() {
     private lateinit var loanEndDateTextView: TextView
     private lateinit var backButton: Button
     private lateinit var takeLoanButton: Button
-    private lateinit var loanAmountTextView: TextView
     private lateinit var loanStatusLabel: TextView
     private lateinit var loanStartDateLabel: TextView
     private lateinit var loanEndDateLabel: TextView
@@ -103,14 +102,15 @@ class LoanActivity : AppCompatActivity() {
         takeLoanButton.setOnClickListener {
             // Get input from user
             val amount = loanAmountEditText.text.toString().toInt()
+            val interestRate = 10
 
             // Retrieve current points of the child from Firebase Realtime Database
             val currentPoints = child?.currentPoints
-            val loanMax = currentPoints!! * 0.1
+            val loanMax = currentPoints!! * 0.3
 
             // Check if the loan amount exceeds 10% of the current points
             if (amount > loanMax) {
-                val message = "Aizņēmuma daudzums nedrīkst pārsniegt 10% no taviem punktiem (${loanMax.roundToInt()} punkti ir maksimālais daudzums)"
+                val message = "Aizņēmuma daudzums nedrīkst pārsniegt 30% no taviem punktiem (${loanMax.roundToInt()} punkti ir maksimālais daudzums)"
                 AlertDialog.Builder(this)
                     .setTitle("Aizņēmuma kļūda")
                     .setMessage(message)
@@ -124,7 +124,7 @@ class LoanActivity : AppCompatActivity() {
                     borrowId = database.push().key!!,
                     childId = child?.childId.toString(),
                     amount = amount,
-                    interestRate = 2,
+                    interestRate = interestRate,
                     startDate = LocalDate.now().toString(),
                     endDate = LocalDate.now().plusWeeks(1).toString(),
                     status = "active"
@@ -133,8 +133,8 @@ class LoanActivity : AppCompatActivity() {
                 // Show confirmation dialog before proceeding with the loan
                 val builder = AlertDialog.Builder(this@LoanActivity)
                 builder.setTitle("Apstiprināt aizņēmumu")
-                val paybackAmount = (amount*1.1).toInt()
-                builder.setMessage("Vai esi pārliecināts, ka vēlies aizņemties $amount punktus? Pēc nedeļas tas tiek atmaksāts ar 10% likmi (Jāatmaksā $paybackAmount)")
+                val paybackAmount = amount*(interestRate.toDouble()/100+1)
+                builder.setMessage("Vai esi pārliecināts, ka vēlies aizņemties $amount punktus? Pēc nedeļas tas tiek atmaksāts ar $interestRate% likmi (${paybackAmount.toInt()} punkti)")
 
                 // Add the buttons
                 builder.setPositiveButton("Apstiprināt") { dialog, which ->
@@ -156,6 +156,10 @@ class LoanActivity : AppCompatActivity() {
                             val index = parent.indexOfChild(loanAmountEditText)
                             parent.removeView(loanAmountEditText)
                             parent.addView(loanAmountTextView, index)
+
+                            loanStatusLabel.visibility = View.VISIBLE
+                            loanStartDateLabel.visibility = View.VISIBLE
+                            loanEndDateLabel.visibility = View.VISIBLE
                         }
                     }.addOnFailureListener {
                         // Display an error message

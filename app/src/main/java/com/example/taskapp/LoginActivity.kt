@@ -31,6 +31,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var auth: FirebaseAuth
     private lateinit var binding: ActivityLoginBinding
     private lateinit var loginBtn: Button
+    private lateinit var forgotPassword: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,7 +64,8 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         loginBtn = findViewById(R.id.login)
         loginBtn.setOnClickListener(this)
 
-
+        forgotPassword = findViewById(R.id.forgotpassword)
+        forgotPassword.setOnClickListener(this)
     }
 
     fun signInGoogle(){
@@ -107,6 +109,7 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             R.id.login -> {
                 signIn()
             }
+            R.id.forgotpassword -> startActivity(Intent(this, ForgotPasswordActivity::class.java))
         }
     }
 

@@ -176,7 +176,7 @@ class ParentChildActivity : AppCompatActivity() {
 
             builder.setView(layout)
 
-            builder.setPositiveButton("OK") { dialog, which ->
+            builder.setPositiveButton("Labi") { dialog, which ->
                 val updatedLoanRate = loanRateEditText.text.toString().toIntOrNull()
                 val updatedDepositRate = depositRateEditText.text.toString().toIntOrNull()
                 val updatedMaxLoanPercentage = maxLoanPercentageEditText.text.toString().toIntOrNull()
@@ -204,7 +204,7 @@ class ParentChildActivity : AppCompatActivity() {
                 }
             }
 
-            builder.setNegativeButton("Cancel") { dialog, which ->
+            builder.setNegativeButton("Atcelt") { dialog, which ->
                 dialog.cancel()
             }
 

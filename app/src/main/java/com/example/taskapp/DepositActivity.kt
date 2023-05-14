@@ -1,5 +1,6 @@
 package com.example.taskapp
 
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.view.View
@@ -69,6 +70,7 @@ class DepositActivity : AppCompatActivity() {
                     if (activeDeposit != null) {
                         // Display deposit properties and disable take deposit button
                         depositAmountTextView.text = activeDeposit.amount.toString()
+                        depositAmountTextView.setTextColor(Color.BLACK)
                         depositStatusTextView.text = "Aktīvs"
                         depositStartDateTextView.text = activeDeposit.startDate
                         depositEndDateTextView.text = activeDeposit.endDate
@@ -145,6 +147,7 @@ class DepositActivity : AppCompatActivity() {
 
                             // Display deposit properties and disable take deposit button
                             depositAmountTextView.text = amount.toString()
+                            depositAmountTextView.setTextColor(Color.BLACK)
                             depositStatusTextView.text = "Aktīvs"
                             depositStartDateTextView.text = deposit.startDate
                             depositEndDateTextView.text = deposit.endDate

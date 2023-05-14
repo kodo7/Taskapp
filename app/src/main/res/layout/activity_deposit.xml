@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_marginEnd="16dp"
+    android:layout_marginTop="16dp"
+    android:layout_marginStart="16dp">
 
     <TextView
         android:id="@+id/depositAmountLabel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Ieguldījuma daudzums:"
-        android:textSize="24dp"/>
+        android:textSize="24dp"
+        android:textColor = "@color/black"/>
 
     <EditText
         android:id="@+id/depositAmountEditText"
@@ -26,7 +30,8 @@
         android:layout_below="@id/depositAmountEditText"
         android:layout_marginTop="16dp"
         android:text="Ieguldījuma statuss: "
-        android:textSize="24dp"/>
+        android:textSize="24dp"
+        android:textColor = "@color/black"/>
 
     <TextView
         android:id="@+id/depositStatusTextView"
@@ -34,7 +39,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/depositStatusLabel"
         android:layout_marginTop="8dp"
-        android:textSize="24dp"/>
+        android:textSize="24dp"
+        android:textColor = "@color/black"/>
 
     <TextView
         android:id="@+id/depositStartDateLabel"
@@ -43,7 +49,8 @@
         android:layout_below="@id/depositStatusTextView"
         android:layout_marginTop="16dp"
         android:text="Ieguldījuma sākšanas datums:"
-        android:textSize="24dp"/>
+        android:textSize="24dp"
+        android:textColor = "@color/black"/>
 
     <TextView
         android:id="@+id/depositStartDateTextView"
@@ -51,7 +58,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/depositStartDateLabel"
         android:layout_marginTop="8dp"
-        android:textSize="24dp"/>
+        android:textSize="24dp"
+        android:textColor = "@color/black"/>
 
     <TextView
         android:id="@+id/depositEndDateLabel"
@@ -60,7 +68,8 @@
         android:layout_below="@id/depositStartDateTextView"
         android:layout_marginTop="16dp"
         android:text="Ieguldījuma beigu datums:"
-        android:textSize="24dp"/>
+        android:textSize="24dp"
+        android:textColor = "@color/black"/>
 
     <TextView
         android:id="@+id/depositEndDateTextView"
@@ -68,7 +77,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/depositEndDateLabel"
         android:layout_marginTop="8dp"
-        android:textSize="24dp"/>
+        android:textSize="24dp"
+        android:textColor = "@color/black"/>
 
     <Button
         android:id="@+id/backButton"
@@ -76,7 +86,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="17dp"
         android:layout_marginBottom="18dp"
         android:text="Atpakaļ" />
 
@@ -86,7 +95,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:text="Apstiprināt ieguldījumu" />
 

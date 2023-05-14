@@ -239,9 +239,4 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
             }
 
     }
-    /*fun RegisterActivity(){
-        finish();
-        val intent = Intent(applicationContext,GoogleRegisterActivity::class.java)
-        startActivity(intent)
-    }*/
 }

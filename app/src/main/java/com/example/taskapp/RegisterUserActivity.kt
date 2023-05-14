@@ -55,12 +55,12 @@ class RegisterUserActivity : AppCompatActivity(), View.OnClickListener {
         if (p0 != null) {
             when (p0.id){
                 R.id.banner -> startActivity(Intent(applicationContext, LoginActivity::class.java))
-                R.id.registerUser -> RegisterUser()
+                R.id.registerUser -> registerUser()
             }
         }
     }
 
-    fun RegisterUser(){
+    fun registerUser(){
         var email:String = editTextEmail.text.toString().trim()
         var password:String = editTextPassword.text.toString().trim()
         var confirmPassword:String = editTextConfirmPassword.text.toString().trim()

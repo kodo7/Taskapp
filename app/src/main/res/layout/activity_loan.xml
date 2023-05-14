@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_marginEnd="16dp"
+    android:layout_marginTop="16dp"
+    android:layout_marginStart="16dp">
 
     <TextView
         android:id="@+id/loanAmountLabel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Aizņēmuma daudzums:"
-        android:textSize="24dp"/>
+        android:textSize="24dp"
+        android:textColor = "@color/black"/>
 
     <EditText
         android:id="@+id/loanAmountEditText"
@@ -26,7 +30,8 @@
         android:layout_below="@id/loanAmountEditText"
         android:layout_marginTop="16dp"
         android:text="Aizņemuma statuss: "
-        android:textSize="24dp"/>
+        android:textSize="24dp"
+        android:textColor = "@color/black"/>
 
     <TextView
         android:id="@+id/loanStatusTextView"
@@ -34,7 +39,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/loanStatusLabel"
         android:layout_marginTop="8dp"
-        android:textSize="24dp"/>
+        android:textSize="24dp"
+        android:textColor = "@color/black"/>
 
     <TextView
         android:id="@+id/loanStartDateLabel"
@@ -43,7 +49,8 @@
         android:layout_below="@id/loanStatusTextView"
         android:layout_marginTop="16dp"
         android:text="Aizņemuma sākšanas datums:"
-        android:textSize="24dp"/>
+        android:textSize="24dp"
+        android:textColor = "@color/black"/>
 
     <TextView
         android:id="@+id/loanStartDateTextView"
@@ -51,7 +58,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/loanStartDateLabel"
         android:layout_marginTop="8dp"
-        android:textSize="24dp"/>
+        android:textSize="24dp"
+        android:textColor = "@color/black"/>
 
     <TextView
         android:id="@+id/loanEndDateLabel"
@@ -60,7 +68,8 @@
         android:layout_below="@id/loanStartDateTextView"
         android:layout_marginTop="16dp"
         android:text="Aizņemuma beigu datums:"
-        android:textSize="24dp"/>
+        android:textSize="24dp"
+        android:textColor = "@color/black"/>
 
     <TextView
         android:id="@+id/loanEndDateTextView"
@@ -68,7 +77,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/loanEndDateLabel"
         android:layout_marginTop="8dp"
-        android:textSize="24dp"/>
+        android:textSize="24dp"
+        android:textColor = "@color/black"/>
 
     <Button
         android:id="@+id/backButton"
@@ -76,7 +86,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="17dp"
         android:layout_marginBottom="18dp"
         android:text="Atpakaļ" />
 
@@ -86,7 +95,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:text="Apstiprināt aizņēmumu" />
 

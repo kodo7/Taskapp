@@ -1,5 +1,6 @@
 package com.example.taskapp
 
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.view.View
@@ -70,6 +71,7 @@ class LoanActivity : AppCompatActivity() {
                     if (activeLoan != null) {
                         // Display loan properties and disable take loan button
                         loanAmountTextView.text = activeLoan.amount.toString()
+                        loanAmountTextView.setTextColor(Color.BLACK)
                         loanStatusTextView.text = "Aktīvs"
                         loanStartDateTextView.text = activeLoan.startDate
                         loanEndDateTextView.text = activeLoan.endDate
@@ -146,6 +148,7 @@ class LoanActivity : AppCompatActivity() {
 
                             // Display loan properties and disable take loan button
                             loanAmountTextView.text = amount.toString()
+                            loanAmountTextView.setTextColor(Color.BLACK)
                             loanStatusTextView.text = "Aktīvs"
                             loanStartDateTextView.text = loan.startDate
                             loanEndDateTextView.text = loan.endDate
